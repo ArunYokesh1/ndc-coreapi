@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hackathon.config;
+package edu.hackathon;
 
 /**
  * @author x075027
