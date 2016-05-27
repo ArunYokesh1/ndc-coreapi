@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 
 @SpringBootApplication
-@EnableMongoRepositories
 public class FlyengoApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
