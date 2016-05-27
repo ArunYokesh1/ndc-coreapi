@@ -1,4 +1,2 @@
 # ndc-coreapi
-Project for iata ndc hackathon
-
-Checking 
+Project for iata ndc hackathon at Berlin
