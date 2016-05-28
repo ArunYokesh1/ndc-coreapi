@@ -1,0 +1,42 @@
+{
+	"orgin" : "AMS",
+	"destination" : "CDG",
+	"meeting" : {
+		"subject" : "Hello",
+		"date" : "29-05-2016",
+		"time" : "11:30"
+	},
+	"recomendedItinerary": {
+		"segments" :[
+			{
+				"flightNumber" : "KL1707",
+				"airlineLogo" : "http://",
+				"depTime" : "07:45",
+				"arrivalTime" : "09:30",
+				"availableAncilaries" : {
+					"ancillaryName" : "Standard Meal",
+					"ancillaryType" : "Meal",
+					"ancillaryUrl" : ""
+				}
+			}
+		],
+		"reasonForRecomendation": "you have chosen this already"
+	},
+	"otherItineraries": [
+		{
+			"segments" :[
+				{
+					"flightNumber" : "KL1707",
+					"airlineLogo" : "http://",
+					"depTime" : "07:45",
+					"arrivalTime" : "09:30",
+					"availableAncilaries" : {
+						"ancillaryName" : "Standard Meal",
+						"ancillaryType" : "Meal",
+						"ancillaryUrl" : ""
+					}
+				}
+			]
+		}
+	]
+}
