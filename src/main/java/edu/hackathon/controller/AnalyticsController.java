@@ -3,9 +3,7 @@
  */
 package edu.hackathon.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,8 +41,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type) {
+        return null;
 	}
 	
 	/**
@@ -57,8 +55,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country) {
+        return null;
 	}
 	
 	/**
@@ -72,8 +70,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}/{location}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location) {
+        return null;
 	}
 	
 	/**
@@ -88,8 +86,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}/{location}/{department}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location, @PathVariable String department) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location, @PathVariable String department) {
+        return null;
 	}
 	
 	/**
@@ -102,8 +100,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/airport/{airportCode}}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecastForAirport(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airportCode) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecastForAirport(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airportCode) {
+        return null;
 	}
 	
 	/**
@@ -116,8 +114,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/airline/{airlineCode}}")
 	@ResponseBody
-	public List<BookingAnalytics> bookingForecastForAirLine(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airlineCode) {
-		return new ArrayList();
+    public BookingAnalytics bookingForecastForAirLine(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airlineCode) {
+        return null;
 	}
 	
 	
@@ -129,8 +127,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/actual")
 	@ResponseBody
-	public List<BookingAnalytics> bookingActuals(@RequestParam(name = "from", required = true) Date from,
+    public BookingAnalytics bookingActuals(@RequestParam(name = "from", required = true) Date from,
 			@RequestParam(name = "to", required = true) Date to) {
-		return new ArrayList();
+        return null;
 	}
 }
