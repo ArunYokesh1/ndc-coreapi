@@ -42,51 +42,38 @@ public class AnalyticsService {
 		DateTime fromDateTime = new DateTime(from).minusYears(1);
 		DateTime toDateTime = new DateTime(to).minusYears(1);
 
-        List<DateTime> fromForcastedDateList = new LinkedList<>();
-        List<DateTime> toForcastedDateList = new LinkedList<>();
-        enrichSplittedDates(from, to, fromForcastedDateList, toForcastedDateList);
+		List<DateTime> fromForcastedDateList = new LinkedList<>();
+		List<DateTime> toForcastedDateList = new LinkedList<>();
+		enrichSplittedDates(from, to, fromForcastedDateList, toForcastedDateList);
 
-        List<DateTime> fromPastDateList = new LinkedList<>();
-        List<DateTime> toPastDateList = new LinkedList<>();
-        enrichSplittedDates(fromDateTime, toDateTime, fromPastDateList, toPastDateList);
+		List<DateTime> fromPastDateList = new LinkedList<>();
+		List<DateTime> toPastDateList = new LinkedList<>();
+		enrichSplittedDates(fromDateTime, toDateTime, fromPastDateList, toPastDateList);
 
 		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
 
-        for (int i = 0; i < fromPastDateList.size(); i++) {
+		for (int i = 0; i < fromPastDateList.size(); i++) {
 
 			BookingAnalytics analyticsRes = new BookingAnalytics();
 
 			DataRange dataRange = new DataRange();
-            dataRange.setFrom(fromForcastedDateList.get(i));
-            dataRange.setTo(toForcastedDateList.get(i));
+			dataRange.setFrom(fromForcastedDateList.get(i));
+			dataRange.setTo(toForcastedDateList.get(i));
 			analyticsRes.setDataRange(dataRange);
 			analyticsRes.setDataType("actual");
 
 			// Get the past year bookings at the same time
-			List<Booking> bookings = bookingRepository.findAll();
+			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i),
+					toPastDateList.get(i));
 
-            List<Booking> identifiedData = identifyPastYearData(bookings, fromPastDateList.get(i), toPastDateList.get(i));
-
-			bookingBasedBusinessRules.calculateCostAndCount(identifiedData, analyticsRes);
-			countryBasedBusinessRules.fillterPerCountry(identifiedData, analyticsRes);
-			analyticsRes.setBookingCount(BigInteger.valueOf(identifiedData.size()));
+			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
+			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
+			analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
 
 			analyticsResponses.add(analyticsRes);
 		}
 
 		return analyticsResponses;
-	}
-
-	private List<Booking> identifyPastYearData(List<Booking> bookings, DateTime fromDateTime, DateTime toDateTime) {
-		List<Booking> pastyearbooking = new ArrayList<>();
-		for (Booking booking : bookings) {
-			if (fromDateTime.isBefore(booking.getOrderedTime().getTime())
-					&& toDateTime.isAfter(booking.getOrderedTime().getTime())) {
-				pastyearbooking.add(booking);
-			}
-		}
-		return pastyearbooking;
-
 	}
 
 	public BookingAnalytics bookingForecast(String from, String to, String type, String country) {
