@@ -19,8 +19,8 @@ public abstract class AbstractAnalyticsBusiness {
 		String currency = new String();
 		for (Booking booking : bookings) {
 			for (Order order : booking.getOrders()) {
-				bookingAmt = bookingAmt + order.getOrderPrice().getAmount();
-				currency = order.getOrderPrice().getCurrency();
+				bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
+				currency = order.getFlightPrice().getCurrency();
 				bookingCount.add(BigInteger.valueOf(1));
 			}
 		}

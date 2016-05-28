@@ -68,11 +68,14 @@ public class AnalyticsService {
 	private void identifyPastYearData(List<Booking> bookings, DateTime fromDateTime, DateTime toDateTime) {
 		List<Booking> pastyearbooking = new ArrayList<>();
 		for (Booking booking : bookings) {
-			for (Segment segment : booking.getItinerary().getSegments()) {
+			/*for (Segment segment : booking.getItinerary().getSegments()) {
 				Date departuretime = DateUtil.parseDate(segment.getDepartureTime());
 				if (fromDateTime.isBefore(departuretime.getTime()) && toDateTime.isAfter(departuretime.getTime())) {
 					pastyearbooking.add(booking);
 				}
+			}*/
+			if (fromDateTime.isBefore(booking.getOrderedTime().getTime()) && toDateTime.isAfter(booking.getOrderedTime().getTime())) {
+				pastyearbooking.add(booking);
 			}
 		}
 
