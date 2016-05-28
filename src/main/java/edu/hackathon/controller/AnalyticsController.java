@@ -47,10 +47,12 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}")
 	@ResponseBody
-    public HttpEntity<List<BookingAnalytics>> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type) {
-		return new ResponseEntity<>(analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
+	public HttpEntity<List<BookingAnalytics>> bookingForecast(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type) {
+		return new ResponseEntity<>(
+				analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 
 	 * @param from
@@ -61,10 +63,11 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}")
 	@ResponseBody
-    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country) {
-        return null;
+	public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type, @PathVariable String country) {
+		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param from
@@ -76,10 +79,11 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}/{location}")
 	@ResponseBody
-    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location) {
-        return null;
+	public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type, @PathVariable String country, @PathVariable String location) {
+		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param from
@@ -92,10 +96,12 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/{country}/{location}/{department}")
 	@ResponseBody
-    public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String country, @PathVariable String location, @PathVariable String department) {
-        return null;
+	public BookingAnalytics bookingForecast(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type, @PathVariable String country, @PathVariable String location,
+			@PathVariable String department) {
+		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param from
@@ -106,10 +112,11 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/airport/{airportCode}}")
 	@ResponseBody
-    public BookingAnalytics bookingForecastForAirport(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airportCode) {
-        return null;
+	public BookingAnalytics bookingForecastForAirport(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type, @PathVariable String airportCode) {
+		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param from
@@ -120,26 +127,27 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}/airline/{airlineCode}}")
 	@ResponseBody
-    public BookingAnalytics bookingForecastForAirLine(@PathVariable String from, @PathVariable String to, @PathVariable String type, @PathVariable String airlineCode) {
-        return null;
+	public BookingAnalytics bookingForecastForAirLine(@PathVariable String from, @PathVariable String to,
+			@PathVariable String type, @PathVariable String airlineCode) {
+		return null;
 	}
-	
-	
 
 	/**
 	 * Return all the users from the institutions.
 	 * 
 	 * @return the list of user from the institutions
 	 */
-	@RequestMapping("/actual")
+	@RequestMapping("/actual/{from}/{to}")
 	@ResponseBody
-    public HttpEntity<List<BookingAnalytics>> bookingActuals(@RequestParam(name = "from", required = true) String from, @RequestParam(name = "to", required = true) String to) {
-        return new ResponseEntity<>(analyticsService.bookingActuals(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
+	public HttpEntity<List<BookingAnalytics>> bookingActuals(@PathVariable String from,
+			@PathVariable String to) {
+		return new ResponseEntity<>(analyticsService.bookingActuals(getDateFromString(from), getDateFromString(to)),
+				HttpStatus.OK);
 	}
-	
-    private DateTime getDateFromString(String sourceDate) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        DateTime date = formatter.parseDateTime(sourceDate);
+
+	private DateTime getDateFromString(String sourceDate) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+		DateTime date = formatter.parseDateTime(sourceDate);
 		return date;
 	}
 

@@ -59,7 +59,7 @@ public class AnalyticsService {
 			dataRange.setFrom(fromForcastedDateList.get(i));
 			dataRange.setTo(toForcastedDateList.get(i));
 			analyticsRes.setDataRange(dataRange);
-			analyticsRes.setDataType("actual");
+			analyticsRes.setDataType("forecast");
 
 			// Get the past year bookings at the same time
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i),
