@@ -46,7 +46,7 @@ public class Itinerary {
 	 */
 	@JsonProperty("totalCost")
 	@JsonView(AnalyticsDataView.BaseDataView.class)
-	private TotalCost totalCost;
+	private Price totalCost;
 	/**
 	 * 
 	 * (Required)
@@ -88,11 +88,11 @@ public class Itinerary {
 		this.bookingCount = bookingCount;
 	}
 
-	public TotalCost getTotalCost() {
+	public Price getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(TotalCost totalCost) {
+	public void setTotalCost(Price totalCost) {
 		this.totalCost = totalCost;
 	}
 
