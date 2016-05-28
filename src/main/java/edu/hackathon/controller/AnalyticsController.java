@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -133,14 +132,28 @@ public class AnalyticsController {
 	}
 
 	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airlineCode
+	 * @return
+	 */
+	@RequestMapping("/forecast/{from}/{to}/airline")
+	@ResponseBody
+	public BookingAnalytics forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
+		analyticsService.forecastForAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
+		return null;
+	}
+
+	/**
 	 * Return all the users from the institutions.
 	 * 
 	 * @return the list of user from the institutions
 	 */
 	@RequestMapping("/actual/{from}/{to}")
 	@ResponseBody
-	public HttpEntity<List<BookingAnalytics>> bookingActuals(@PathVariable String from,
-			@PathVariable String to) {
+	public HttpEntity<List<BookingAnalytics>> bookingActuals(@PathVariable String from, @PathVariable String to) {
 		return new ResponseEntity<>(analyticsService.bookingActuals(getDateFromString(from), getDateFromString(to)),
 				HttpStatus.OK);
 	}

@@ -21,14 +21,13 @@ public class Airline extends AbstractAnalyticsItem {
 	@JsonView(AnalyticsDataView.BaseDataView.class)
 	private String code;
 
-	@JsonProperty("cabinClass")
-	@JsonView(AnalyticsDataView.BaseDataView.class)
 	private List<CabinClass> cabinClass = new ArrayList<CabinClass>();
 
 	@JsonProperty("itinerary")
 	@JsonView(AnalyticsDataView.BaseDataView.class)
 	private Itinerary itinerary;
 
+	@JsonProperty
 	private List<AncillaryProduct> ancillaryProducts;
 
 	public String getName() {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import edu.hackathon.repository.model.Booking;
@@ -33,10 +34,11 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private void setBookingCostAndCount(String countryCode, Map<String, List<Booking>> countryFilteredBookings,
 			BookingAnalytics analyticsRes) {
+		String[] countryCodeSplit = StringUtils.split(countryCode, "-");
 		Country country = new Country();
-		country.setCode(countryCode);
+		country.setCode(countryCodeSplit[0]);
+		country.setName(countryCodeSplit[1]);
 		List<Booking> bookings = countryFilteredBookings.get(countryCode);
-		country.setName(bookings.get(0).getPassengers().get(0).getCountry());
 		setBookingCostAndCount(bookings, country);
 		setAncillaryCostAndCount(bookings, country);
 		filterByLocation(bookings, country);
@@ -89,8 +91,9 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		Map<String, List<Booking>> filteredBooking = splitByAirline(bookings);
 		for (String airline : filteredBooking.keySet()) {
 			Airline flightCompany = new Airline();
-			flightCompany.setName(airline);
-			flightCompany.setCode(airline);
+			String[] airlineCodeSplit = StringUtils.split(airline, "-");
+			flightCompany.setName(airlineCodeSplit[1]);
+			flightCompany.setCode(airlineCodeSplit[0]);
 			List<Booking> tempBooking = filteredBooking.get(airline);
 			setBookingCostAndCount(tempBooking, flightCompany);
 			setAncillaryCostAndCount(tempBooking, flightCompany);
@@ -105,7 +108,6 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			AncillaryProduct ancillaryPro = new AncillaryProduct();
 			ancillaryPro.setName(prodName);
 			List<Booking> tempBooking = filteredBooking.get(prodName);
-			setBookingCostAndCount(tempBooking, ancillaryPro);
 			setAncillaryCostAndCount(tempBooking, ancillaryPro);
 			flightCompany.addAncillaryProducts(ancillaryPro);
 		}
@@ -140,13 +142,13 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		if (bookings != null) {
 			for (Booking booking : bookings) {
 				for (Segment seg : booking.getItinerary().getSegments()) {
-					List<Booking> tempBookings = filteredBooking.get(seg.getOperatingCarrier().getAirlineCode());
+					List<Booking> tempBookings = filteredBooking.get(seg.getOperatingCarrier().getAirlineCode()+"-"+seg.getOperatingCarrier().getAirlineName());
 					if (tempBookings != null) {
 						tempBookings.add(booking);
 					} else {
 						List<Booking> b = new ArrayList<Booking>();
 						b.add(booking);
-						filteredBooking.put(seg.getOperatingCarrier().getAirlineCode(), b);
+						filteredBooking.put(seg.getOperatingCarrier().getAirlineCode()+"-"+seg.getOperatingCarrier().getAirlineName(), b);
 					}
 				}
 			}
@@ -217,13 +219,13 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		if (bookings != null) {
 			for (Booking booking : bookings) {
 				for (Passenger passenger : booking.getPassengers()) {
-					List<Booking> tempBooking = filteredBooking.get(passenger.getCountryCode());
+					List<Booking> tempBooking = filteredBooking.get(passenger.getCountryCode()+"-"+passenger.getCountry());
 					if (tempBooking != null) {
 						tempBooking.add(booking);
 					} else {
 						List<Booking> b = new ArrayList<Booking>();
 						b.add(booking);
-						filteredBooking.put(passenger.getCountryCode(), b);
+						filteredBooking.put(passenger.getCountryCode()+"-"+passenger.getCountry(), b);
 					}
 
 				}

@@ -186,4 +186,9 @@ public class AnalyticsService {
 		}
 
 	}
+
+	public void forecastForAirlineBasedBooking(DateTime from, DateTime to) {
+
+		
+	}
 }
