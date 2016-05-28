@@ -6,10 +6,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "dataType", "dataRange", "bookingCount", "totalCost", "countries" })
 public class BookingAnalytics extends AbstractAnalyticsItem {
 
 	// Type of data represents, either actual or prediction

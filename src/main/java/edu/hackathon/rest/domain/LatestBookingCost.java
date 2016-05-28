@@ -7,7 +7,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.hackathon.rest.view.AnalyticsDataView;
@@ -17,7 +16,6 @@ import edu.hackathon.rest.view.AnalyticsDataView;
  *
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "amount", "currency", "time" })
 public class LatestBookingCost {
 
 	@JsonProperty("amount")

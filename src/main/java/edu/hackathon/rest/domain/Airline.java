@@ -6,13 +6,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.hackathon.rest.view.AnalyticsDataView;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "name", "code", "bookingCount", "totalCost", "cabinClass" })
 public class Airline extends AbstractAnalyticsItem {
 
 	@JsonProperty("name")

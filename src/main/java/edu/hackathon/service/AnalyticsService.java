@@ -16,15 +16,8 @@ import edu.hackathon.business.BookingBasedBusiness;
 import edu.hackathon.business.CountryBasedBusiness;
 import edu.hackathon.repository.BookingRepository;
 import edu.hackathon.repository.model.Booking;
-import edu.hackathon.repository.model.Order;
-import edu.hackathon.repository.model.Passenger;
-import edu.hackathon.repository.model.PassengerSegment;
-import edu.hackathon.repository.model.Product;
-import edu.hackathon.repository.model.Segment;
 import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.rest.domain.DataRange;
-import edu.hackathon.rest.domain.Price;
-import edu.hackathon.util.DateUtil;
 
 /**
  * @author x096284

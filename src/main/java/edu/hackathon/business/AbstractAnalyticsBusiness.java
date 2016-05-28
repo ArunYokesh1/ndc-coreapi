@@ -3,8 +3,6 @@ package edu.hackathon.business;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.apache.commons.collections.ListUtils;
-
 import edu.hackathon.repository.model.Booking;
 import edu.hackathon.repository.model.Order;
 import edu.hackathon.repository.model.Passenger;
@@ -16,7 +14,7 @@ import edu.hackathon.rest.domain.Price;
 public abstract class AbstractAnalyticsBusiness {
 
 	public <T extends AbstractAnalyticsItem> void setBookingCostAndCount(List<Booking> bookings, T analytics) {
-		BigInteger bookingCount = BigInteger.valueOf(0);
+		long bookingCount = 0l;
 		Long bookingAmt = 0l;
 		String currency = new String();
 		if (bookings != null)
@@ -24,7 +22,7 @@ public abstract class AbstractAnalyticsBusiness {
 				for (Order order : booking.getOrders()) {
 					bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
 					currency = order.getFlightPrice().getCurrency();
-					bookingCount.add(BigInteger.valueOf(1));
+					bookingCount = bookingCount + 1;
 				}
 			}
 
@@ -32,7 +30,7 @@ public abstract class AbstractAnalyticsBusiness {
 		price.setAmount(Double.valueOf(bookingAmt));
 		price.setCurrency(currency);
 		analytics.setBookingPrice(price);
-		analytics.setBookingCount(bookingCount);
+		analytics.setBookingCount(BigInteger.valueOf(bookingCount));
 
 	}
 

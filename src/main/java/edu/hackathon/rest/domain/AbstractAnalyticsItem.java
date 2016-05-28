@@ -32,8 +32,8 @@ public class AbstractAnalyticsItem {
 		return bookingPrice;
 	}
 
-	public void setBookingPrice(Price totalBookingCost) {
-		this.bookingPrice = totalBookingCost;
+	public void setBookingPrice(Price bookingPrice) {
+		this.bookingPrice = bookingPrice;
 	}
 
 	public BigInteger getAncillaryCount() {
@@ -44,12 +44,12 @@ public class AbstractAnalyticsItem {
 		this.ancillaryCount = ancillaryCount;
 	}
 
-	public Price getAncillaryPice() {
+	public Price getAncillaryPrice() {
 		return ancillaryPrice;
 	}
 
-	public void setAncillaryPrice(Price totalAncillaryCost) {
-		this.ancillaryPrice = totalAncillaryCost;
+	public void setAncillaryPrice(Price ancillaryPrice) {
+		this.ancillaryPrice = ancillaryPrice;
 	}
 
 }
