@@ -1,0 +1,106 @@
+{
+	"bookingReference": {
+		"code": "ASDF5Q",
+		"airlineId": "KL"
+	},
+	"orderedTime":"",
+	"passengers":[
+		{
+			"firstName":"Arun",
+			"lastName":"Rajapandiayan",
+			"passengerType":"Adult",
+			"birthdate":"",
+			"isEmployee":true,
+			"employer":"TCS",
+			"organization":"",
+			"department":"Software",
+			"organizationalRole":"IT Analyst",
+			"passengerSegments":[
+				{
+					"flightSegmentRef":"1",
+					"products":[
+						{
+							"productName":"Premium Ecomomy",
+							"productType":"Seat",
+							"associatedOrderId":"1234",
+							"price":{
+								"amount":25,
+								"currency":"EUR",
+								"tax":11
+							}
+						},
+						{
+							"productName":"Asian Meal",
+							"productType":"Meal",
+							"associatedOrderId":"1234",
+							"price":{
+								"amount":10,
+								"currency":"EUR",
+								"tax":11
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"itinerary":{
+		"segments":[
+			{
+				"id":"1",
+				"departure":{
+					"airportCode":"AMS",
+					"name":"Amsterdam Schipol",
+					"cityCode":"AMS",
+					"countryCode":"NL",
+					"lat":234.12,
+					"lon":123.12
+				},
+				"arrival":{
+					"airportCode":"MAD",
+					"name":"Madrid",
+					"cityCode":"MAD",
+					"countryCode":"SP",
+					"lat":345.12,
+					"lon":233.12
+				},
+				"marketingCarrier":{
+					"airlineCode":"KL",
+					"flightCode":"1707",
+					"airlineName":"KLM"
+				},
+				"operatingCarrier":{
+					"airlineCode":"KL",
+					"flightCode":"1707",
+					"airlineName":"KLM"
+				},
+				"duration":""
+			}
+		],
+		"duration":"",
+		"orders":[
+			{
+				"orderId":"1234-12",
+				"orderOwner":"KL",
+				"orderPrice":{
+					"amount":35,
+					"currency":"EUR",
+					"tax":11
+				},
+				"orderItems":[
+					{
+						"orderId":"1234",
+						"associatedPassengers":[
+							"Arun"
+						],
+						"orderedTime":"",
+						"itemType":"----",
+						"associatedSegments":[
+							"1"
+						]
+					}
+				]
+			}
+		]
+	}
+}

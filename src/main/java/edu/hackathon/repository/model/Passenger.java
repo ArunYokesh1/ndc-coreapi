@@ -1,6 +1,5 @@
 package edu.hackathon.repository.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class Passenger {
@@ -13,7 +12,7 @@ public class Passenger {
 	
 	private String passengerType;
 	
-	private Date birthdate;
+	private String birthDate;
 	
 	private boolean isEmployee;
 	
@@ -59,12 +58,12 @@ public class Passenger {
 		this.passengerType = passengerType;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
+	public String getBirthString() {
+		return birthDate;
 	}
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthString(String birthString) {
+		this.birthDate = birthString;
 	}
 
 	public boolean isEmployee() {

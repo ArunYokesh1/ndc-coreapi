@@ -1,0 +1,98 @@
+{
+	"bookingReference": {
+		"code": "QWER4W",
+		"airlineId": "KL"
+	},
+	"orderedTime":"",
+	"passengers":[
+		{
+			"firstName":"Prabu",
+			"lastName":"Supriyapillai",
+			"passengerType":"Adult",
+			"birthdate":"",
+			"isEmployee":true,
+			"employer":"TCS",
+			"organization":"",
+			"department":"Software",
+			"organizationalRole":"Consultant",
+			"passengerSegments":[
+				{
+					"flightSegmentRef":"1",
+					"products":[
+						{
+							"productName":"Premium Ecomomy",
+							"productType":"Seat",
+							"associatedOrderId":"5433",
+							"price":{
+								"amount":25,
+								"currency":"EUR",
+								"tax":11
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"itinerary":{
+		"segments":[
+			{
+				"id":"1",
+				"departure":{
+					"airportCode":"MAD",
+					"name":"Madrid",
+					"cityCode":"MAD",
+					"countryCode":"NL",					
+					"lat":345.12,
+					"lon":233.12
+				},
+				"arrival":{
+					"airportCode":"AMS",
+					"name":"Amsterdam Schipol",
+					"cityCode":"AMS",
+					"countryCode":"SP",
+					"lat":234.12,
+					"lon":123.12
+				},
+				"marketingCarrier":{
+					"airlineCode":"KL",
+					"flightCode":"1706",
+					"airlineName":"KLM"
+				},
+				"operatingCarrier":{
+					"airlineCode":"KL",
+					"flightCode":"1706",
+					"airlineName":"KLM"
+				},
+				"duration":""
+			}
+		],
+		"duration":"",
+		"orders":[
+			{
+				"orderId":"7688-23",
+				"orderOwner":"KL",
+				"orderPrice":{
+					"amount":25,
+					"currency":"EUR",
+					"tax":11
+				},
+				"orderItems":[
+					{
+						"orderId":"5433",
+						"associatedPassengers":[
+							"Arun"
+						],
+						"orderedTime":"",
+						"itemType":"----",
+						"associatedSegments":[
+							"1"
+						]
+					}
+				]
+			}
+		]
+	}
+}
+{
+}

@@ -2,13 +2,11 @@ package edu.hackathon.repository.model;
 
 import java.util.List;
 
-import org.joda.time.Duration;
-
 public class Itinerary {
 	
 	private List<Segment> segments;
 	
-	private Duration duration;
+	private String duration;
 
 	public List<Segment> getSegments() {
 		return segments;
@@ -18,11 +16,11 @@ public class Itinerary {
 		this.segments = segments;
 	}
 
-	public Duration getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Duration duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 	

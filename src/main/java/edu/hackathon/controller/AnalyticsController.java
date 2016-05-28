@@ -28,10 +28,10 @@ public class AnalyticsController {
 	@Autowired
 	private AnalyticsService analyticsService;
 
-	@RequestMapping("/healthcheck")
+	@RequestMapping
 	@ResponseBody
 	public String healthcheck() {
-		return "SUCESS";
+		return "Server is Running properly :) ";
 	}
 
 	/**
