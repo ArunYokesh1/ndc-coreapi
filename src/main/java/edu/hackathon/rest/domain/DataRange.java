@@ -5,11 +5,15 @@ import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import edu.hackathon.repository.CustomDateSerializer;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataRange {
 
 	@JsonProperty("from")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private DateTime from;
 	/**
 	 * 
@@ -17,6 +21,7 @@ public class DataRange {
 	 * 
 	 */
 	@JsonProperty("to")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private DateTime to;
 
     public DateTime getFrom() {
