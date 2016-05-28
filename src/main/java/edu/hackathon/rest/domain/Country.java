@@ -3,16 +3,21 @@ package edu.hackathon.rest.domain;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Country extends AbstractAnalyticsItem {
 	
+	@JsonProperty
 	private String name;
 	
+	@JsonProperty
 	private String code;
 	
+	@JsonProperty
 	private List<Airport> airports;
 	
+	@JsonProperty
 	private List<Location> locations;
 
 	public String getName() {

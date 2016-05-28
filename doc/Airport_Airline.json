@@ -14,7 +14,7 @@
       "cost" : 2000,
       "currency" : "EURO"
    },
-   "country" : [
+   "countries" : [
       {
          "name" : "Netherlands",
          "code" : "NL",

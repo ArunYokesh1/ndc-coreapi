@@ -2,12 +2,16 @@ package edu.hackathon.rest.domain;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ancillary {
 
-	private String name;
-	private String type;
-	private BigInteger totalCount;
-	private Price totalCost;
+	@JsonProperty private String name;
+	@JsonProperty private String type;
+	@JsonProperty private BigInteger totalCount;
+	@JsonProperty private Price totalCost;
 
 	public String getName() {
 		return name;

@@ -2,21 +2,23 @@ package edu.hackathon.rest.domain;
 
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AbstractAnalyticsItem {
 
 	@JsonProperty
 	private BigInteger bookingCount;
 
 	@JsonProperty
-	private Price bookingCost;
+	private Price bookingPrice;
 
 	@JsonProperty
 	private BigInteger ancillaryCount;
 
 	@JsonProperty
-	private Price ancillaryCost;
+	private Price ancillaryPrice;
 
 	public BigInteger getBookingCount() {
 		return bookingCount;
@@ -26,12 +28,12 @@ public class AbstractAnalyticsItem {
 		this.bookingCount = bookingCount;
 	}
 
-	public Price getTotalBookingCost() {
-		return bookingCost;
+	public Price getBookingPrice() {
+		return bookingPrice;
 	}
 
-	public void setTotalBookingCost(Price totalBookingCost) {
-		this.bookingCost = totalBookingCost;
+	public void setBookingPrice(Price totalBookingCost) {
+		this.bookingPrice = totalBookingCost;
 	}
 
 	public BigInteger getAncillaryCount() {
@@ -42,12 +44,12 @@ public class AbstractAnalyticsItem {
 		this.ancillaryCount = ancillaryCount;
 	}
 
-	public Price getTotalAncillaryCost() {
-		return ancillaryCost;
+	public Price getAncillaryPice() {
+		return ancillaryPrice;
 	}
 
-	public void setTotalAncillaryCost(Price totalAncillaryCost) {
-		this.ancillaryCost = totalAncillaryCost;
+	public void setAncillaryPrice(Price totalAncillaryCost) {
+		this.ancillaryPrice = totalAncillaryCost;
 	}
 
 }

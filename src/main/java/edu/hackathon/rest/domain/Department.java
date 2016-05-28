@@ -2,16 +2,25 @@ package edu.hackathon.rest.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Department extends AbstractAnalyticsItem {
 
+	@JsonProperty
 	private String name;
 
+	@JsonProperty
 	private String code;
 
+	@JsonProperty
 	private List<Ancillary> ancillaries;
 
+	@JsonProperty
 	private List<Airline> airlines;
 
+	@JsonProperty
 	private List<Airport> airports;
 
 	public String getName() {
