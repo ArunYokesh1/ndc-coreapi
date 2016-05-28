@@ -1,5 +1,6 @@
 package edu.hackathon.rest.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -39,6 +40,14 @@ public class Airport extends AbstractAnalyticsItem {
 
 	public void setAirlines(List<Airline> airlines) {
 		this.airlines = airlines;
+	}
+
+	public void addAirline(Airline airline) {
+		if (this.airlines != null) {
+			this.airlines = new ArrayList<>();
+		}
+		this.airlines.add(airline);
+
 	}
 
 }

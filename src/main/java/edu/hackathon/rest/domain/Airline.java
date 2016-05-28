@@ -31,6 +31,8 @@ public class Airline extends AbstractAnalyticsItem {
 	@JsonView(AnalyticsDataView.BaseDataView.class)
 	private Itinerary itinerary;
 
+	private List<AncillaryProduct> ancillaryProducts;
+
 	public String getName() {
 		return name;
 	}
@@ -63,6 +65,21 @@ public class Airline extends AbstractAnalyticsItem {
 
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
+	}
+
+	public List<AncillaryProduct> getAncillaryProducts() {
+		return ancillaryProducts;
+	}
+
+	public void setAncillaryProducts(List<AncillaryProduct> ancillaryProducts) {
+		this.ancillaryProducts = ancillaryProducts;
+	}
+
+	public void addAncillaryProducts(AncillaryProduct ancillaryProduct) {
+		if (this.ancillaryProducts != null) {
+			this.ancillaryProducts = new ArrayList<>();
+		}
+		this.ancillaryProducts.add(ancillaryProduct);
 	}
 
 }
