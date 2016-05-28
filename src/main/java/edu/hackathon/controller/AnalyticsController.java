@@ -143,9 +143,8 @@ public class AnalyticsController {
 	private Date getDateFromString(String sourceDate) {
 		Date date = null;
 		try {
-			String string = "January 2, 2010";
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-			date = format.parse(string);
+			date = format.parse(sourceDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
