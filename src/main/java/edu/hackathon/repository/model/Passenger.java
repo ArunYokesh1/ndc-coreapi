@@ -1,30 +1,29 @@
 package edu.hackathon.repository.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class Passenger {
 
 	private String firstName;
-	
+
 	private String middleName;
-	
+
 	private String lastName;
-	
+
 	private String passengerType;
-	
-	private Date birthdate;
-	
+
+	private String birthDate;
+
 	private boolean isEmployee;
-	
+
 	private String employer;
-	
+
 	private String organization;
-	
+
 	private String department;
-	
+
 	private String organizationalRole;
-	
+
 	private List<PassengerSegment> passengerSegments;
 
 	public String getFirstName() {
@@ -57,14 +56,6 @@ public class Passenger {
 
 	public void setPassengerType(String passengerType) {
 		this.passengerType = passengerType;
-	}
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
 	}
 
 	public boolean isEmployee() {
@@ -106,7 +97,21 @@ public class Passenger {
 	public void setPassengerSegments(List<PassengerSegment> passengerSegments) {
 		this.passengerSegments = passengerSegments;
 	}
-	
-	
-	
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getOrganizationalRole() {
+		return organizationalRole;
+	}
+
+	public void setOrganizationalRole(String organizationalRole) {
+		this.organizationalRole = organizationalRole;
+	}
+
 }

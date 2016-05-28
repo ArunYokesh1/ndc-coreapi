@@ -6,8 +6,8 @@ public class Airport {
 	private String name;
 	private String cityCode;
 	private String countryCode;
-	private long lat;
-	private long lon;
+	private String lat;
+	private String lon;
 
 	public String getAirportCode() {
 		return airportCode;
@@ -41,19 +41,19 @@ public class Airport {
 		this.countryCode = countryCode;
 	}
 
-	public long getLat() {
+	public String getLat() {
 		return lat;
 	}
 
-	public void setLat(long lat) {
+	public void setLat(String lat) {
 		this.lat = lat;
 	}
 
-	public long getLon() {
+	public String getLon() {
 		return lon;
 	}
 
-	public void setLon(long lon) {
+	public void setLon(String lon) {
 		this.lon = lon;
 	}
 

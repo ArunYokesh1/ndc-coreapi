@@ -1,6 +1,5 @@
 package edu.hackathon.repository.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class OrderItem {
@@ -9,7 +8,7 @@ public class OrderItem {
 	
 	private List<String> associatedPassengers;
 	
-	private Date orderedTime;
+	private String orderedTime;
 	
 	private String itemType;
 	
@@ -24,11 +23,11 @@ public class OrderItem {
 	}
 	
 
-	public Date getOrderedTime() {
+	public String getOrderedTime() {
 		return orderedTime;
 	}
 
-	public void setOrderedTime(Date orderedTime) {
+	public void setOrderedTime(String orderedTime) {
 		this.orderedTime = orderedTime;
 	}
 

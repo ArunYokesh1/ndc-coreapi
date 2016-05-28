@@ -3,8 +3,6 @@
  */
 package edu.hackathon.repository.model;
 
-import org.joda.time.Duration;
-
 /**
  * @author ArunYokesh1
  *
@@ -16,7 +14,7 @@ public class Segment {
 	private Airport arrival;
 	private Carrier marketingCarrier;
 	private Carrier operatingCarrier;
-	private Duration duration;
+	private String duration;
 
 	public String getId() {
 		return id;
@@ -58,11 +56,11 @@ public class Segment {
 		this.operatingCarrier = operatingCarrier;
 	}
 
-	public Duration getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Duration duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 

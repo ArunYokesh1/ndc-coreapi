@@ -1,24 +1,23 @@
 package edu.hackathon.repository.model;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Booking {
-	
+
 	@org.springframework.data.annotation.Id
 	private String Id;
-	
+
 	private BookingReference bookingReference;
-	
-	private Date orderedTime;
-	
+
+	private String orderedTime;
+
 	private List<Passenger> passengers;
-	
+
 	private Itinerary itinerary;
-	
+
 	private List<Order> orders;
 
 	public String getId() {
@@ -37,11 +36,11 @@ public class Booking {
 		this.bookingReference = bookingReference;
 	}
 
-	public Date getOrderedTime() {
+	public String getOrderedTime() {
 		return orderedTime;
 	}
 
-	public void setOrderedTime(Date orderedTime) {
+	public void setOrderedTime(String orderedTime) {
 		this.orderedTime = orderedTime;
 	}
 
@@ -68,7 +67,5 @@ public class Booking {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
-	
-	
 
 }
