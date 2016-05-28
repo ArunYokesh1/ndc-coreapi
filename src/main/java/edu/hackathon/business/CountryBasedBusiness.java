@@ -1,7 +1,6 @@
 package edu.hackathon.business;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,7 @@ import edu.hackathon.rest.domain.Location;
 public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	public void fillterPerCountry(List<Booking> bookings, BookingAnalytics analyticsRes) {
-		Map<String, List<Booking>> countryFilteredBookings = splitByCountry(analyticsRes, bookings);
+		Map<String, List<Booking>> countryFilteredBookings = splitByCountry(bookings);
 		for (String countryCode : countryFilteredBookings.keySet()) {
 			setBookingCostAndCount(countryCode, countryFilteredBookings, analyticsRes);
 		}
@@ -34,16 +33,14 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private void setBookingCostAndCount(String countryCode, Map<String, List<Booking>> countryFilteredBookings,
 			BookingAnalytics analyticsRes) {
-		for (String cc : countryFilteredBookings.keySet()) {
-			Country country = new Country();
-			country.setCode(cc);
-			List<Booking> bookings = countryFilteredBookings.get(cc);
-			country.setName(bookings.get(0).getPassengers().get(0).getCountry());
-			setBookingCostAndCount(bookings, country);
-			setAncillaryCostAndCount(bookings, country);
-			filterByLocation(bookings, country);
-			analyticsRes.addCountry(country);
-		}
+		Country country = new Country();
+		country.setCode(countryCode);
+		List<Booking> bookings = countryFilteredBookings.get(countryCode);
+		country.setName(bookings.get(0).getPassengers().get(0).getCountry());
+		setBookingCostAndCount(bookings, country);
+		setAncillaryCostAndCount(bookings, country);
+		filterByLocation(bookings, country);
+		analyticsRes.addCountry(country);
 	}
 
 	private void filterByLocation(List<Booking> bookings, Country country) {
@@ -216,18 +213,18 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		return filteredBooking;
 	}
 
-	private Map<String, List<Booking>> splitByCountry(BookingAnalytics analyticsRes, List<Booking> bookings) {
+	private Map<String, List<Booking>> splitByCountry(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
 		if (bookings != null) {
 			for (Booking booking : bookings) {
 				for (Passenger passenger : booking.getPassengers()) {
-					List<Booking> tempBooking = filteredBooking.get(passenger.getCountry());
+					List<Booking> tempBooking = filteredBooking.get(passenger.getCountryCode());
 					if (tempBooking != null) {
 						tempBooking.add(booking);
 					} else {
 						List<Booking> b = new ArrayList<Booking>();
 						b.add(booking);
-						filteredBooking.put(passenger.getCountry(), b);
+						filteredBooking.put(passenger.getCountryCode(), b);
 					}
 
 				}
