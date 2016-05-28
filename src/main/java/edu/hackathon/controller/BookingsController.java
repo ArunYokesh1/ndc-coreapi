@@ -11,7 +11,7 @@ import edu.hackathon.repository.BookingRepository;
 import edu.hackathon.repository.model.Booking;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookingDetails")
 public class BookingsController {
 
 	@Autowired

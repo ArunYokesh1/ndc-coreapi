@@ -21,6 +21,10 @@ public class Passenger {
 	private String department;
 	
 	private String workingLocation;
+	
+	private String country;
+	
+	private String countryCode;
 
 	/**
 	 * @return the workingLocation
@@ -118,6 +122,34 @@ public class Passenger {
 
 	public void setOrganizationalRole(String organizationalRole) {
 		this.organizationalRole = organizationalRole;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/**
+	 * @return the countryCode
+	 */
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	/**
+	 * @param countryCode the countryCode to set
+	 */
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 }
