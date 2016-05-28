@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import edu.hackathon.rest.view.AnalyticsDataView;
 
 /**
- * @author x075027
+ * @author ArunYokesh1
  *
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)

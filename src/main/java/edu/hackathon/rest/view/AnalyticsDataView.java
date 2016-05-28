@@ -4,7 +4,7 @@
 package edu.hackathon.rest.view;
 
 /**
- * @author x075027
+ * @author ArunYokesh1
  *
  */
 public class AnalyticsDataView {
