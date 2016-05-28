@@ -48,7 +48,7 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		for (String location : filteredBooking.keySet()) {
 			Location loc = new Location();
 			loc.setName(location);
-			List<Booking> tempBooking = filteredBooking.get(loc);
+			List<Booking> tempBooking = filteredBooking.get(location);
 			setBookingCostAndCount(tempBooking, loc);
 			setAncillaryCostAndCount(tempBooking, loc);
 			filterByDepartment(tempBooking, loc);
@@ -101,11 +101,10 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private void filterByAncillary(List<Booking> bookings, Airline flightCompany) {
 		Map<String, List<Booking>> filteredBooking = splitByAncillary(bookings);
-		for (String airline : filteredBooking.keySet()) {
+		for (String prodName : filteredBooking.keySet()) {
 			AncillaryProduct ancillaryPro = new AncillaryProduct();
-			flightCompany.setName(airline);
-			flightCompany.setCode(airline);
-			List<Booking> tempBooking = filteredBooking.get(airline);
+			ancillaryPro.setName(prodName);
+			List<Booking> tempBooking = filteredBooking.get(prodName);
 			setBookingCostAndCount(tempBooking, ancillaryPro);
 			setAncillaryCostAndCount(tempBooking, ancillaryPro);
 			flightCompany.addAncillaryProducts(ancillaryPro);
