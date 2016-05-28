@@ -5,25 +5,25 @@ import java.util.List;
 public class Passenger {
 
 	private String firstName;
-	
+
 	private String middleName;
-	
+
 	private String lastName;
-	
+
 	private String passengerType;
-	
+
 	private String birthDate;
-	
+
 	private boolean isEmployee;
-	
+
 	private String employer;
-	
+
 	private String organization;
-	
+
 	private String department;
-	
+
 	private String organizationalRole;
-	
+
 	private List<PassengerSegment> passengerSegments;
 
 	public String getFirstName() {
@@ -56,14 +56,6 @@ public class Passenger {
 
 	public void setPassengerType(String passengerType) {
 		this.passengerType = passengerType;
-	}
-
-	public String getBirthString() {
-		return birthDate;
-	}
-
-	public void setBirthString(String birthString) {
-		this.birthDate = birthString;
 	}
 
 	public boolean isEmployee() {
@@ -105,7 +97,21 @@ public class Passenger {
 	public void setPassengerSegments(List<PassengerSegment> passengerSegments) {
 		this.passengerSegments = passengerSegments;
 	}
-	
-	
-	
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getOrganizationalRole() {
+		return organizationalRole;
+	}
+
+	public void setOrganizationalRole(String organizationalRole) {
+		this.organizationalRole = organizationalRole;
+	}
+
 }
