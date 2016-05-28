@@ -3,6 +3,8 @@ package edu.hackathon.business;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.commons.collections4.ListUtils;
+
 import edu.hackathon.repository.model.Booking;
 import edu.hackathon.repository.model.Order;
 import edu.hackathon.repository.model.Passenger;
@@ -17,14 +19,13 @@ public abstract class AbstractAnalyticsBusiness {
 		long bookingCount = 0l;
 		Long bookingAmt = 0l;
 		String currency = new String();
-		if (bookings != null)
-			for (Booking booking : bookings) {
-				for (Order order : booking.getOrders()) {
-					bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
-					currency = order.getFlightPrice().getCurrency();
-					bookingCount = bookingCount + 1;
-				}
+		for (Booking booking : ListUtils.emptyIfNull(bookings)) {
+			for (Order order : ListUtils.emptyIfNull(booking.getOrders())) {
+				bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
+				currency = order.getFlightPrice().getCurrency();
+				bookingCount = bookingCount + 1;
 			}
+		}
 
 		Price price = new Price();
 		price.setAmount(Double.valueOf(bookingAmt));
@@ -39,9 +40,9 @@ public abstract class AbstractAnalyticsBusiness {
 		long count = 0l;
 		String currency = new String();
 		if (bookings != null) {
-			for (Booking booking : bookings) {
-				for (Passenger passenger : booking.getPassengers()) {
-					for (PassengerSegment paxSeg : passenger.getPassengerSegments()) {
+			for (Booking booking : ListUtils.emptyIfNull(bookings)) {
+				for (Passenger passenger : ListUtils.emptyIfNull(booking.getPassengers())) {
+					for (PassengerSegment paxSeg : ListUtils.emptyIfNull(passenger.getPassengerSegments())) {
 						for (Product product : paxSeg.getProducts()) {
 							ancillaryAmt = ancillaryAmt + product.getPrice().getAmount();
 							currency = product.getPrice().getCurrency();
