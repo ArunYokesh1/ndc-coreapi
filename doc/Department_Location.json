@@ -1,0 +1,189 @@
+{
+   "dataType" : "forecast",
+   "dataRange" : {
+      "From" : "01Nov2015",
+      "To" : "30Nov2015"
+   },
+   "bookingCount" : 300,
+   "ancillaryCount" : 200,
+   "bookingPrice" : {
+      "cost" : 2000,
+      "currency" : "EURO"
+   },
+   "ancillaryPrice" : {
+      "cost" : 2000,
+      "currency" : "EURO"
+   },
+   "country" : [
+      {
+         "name" : "Netherlands",
+         "code" : "NL",
+         "bookingCount" : 2000,
+         "ancillaryCount" : 200,
+         "bookingPrice" : {
+            "cost" : 2000,
+            "currency" : "EURO"
+         },
+         "ancillaryPrice" : {
+            "cost" : 2000,
+            "currency" : "EURO"
+         },
+         "location" : [
+            {
+               "code" : "AMS",
+               "name" : "Amsterdam",
+               "department" : [
+                  {
+                     "name" : "Ground Services",
+                     "bookingCount" : 2000,
+                     "ancillaryCount" : 200,
+                     "bookingPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     },
+                     "ancillaryPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     },
+                     "ancillary" : [
+                        {
+                           "name" : "Extra LegRoom",
+                           "type" : "Seat",
+                           "ancillaryCount" : 200,
+                           "ancillaryPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           }
+                        },
+                        {
+                           "name" : "Paid Lounge",
+                           "type" : "Lounge",
+                           "ancillaryCount" : 200,
+                           "ancillaryPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           }
+                        }
+                     ],
+                     "airport" : [
+                        {
+                           "code" : "AMS",
+                           "name" : "Schiphol",
+                           "bookingCount" : 2000,
+                           "ancillaryCount" : 200,
+                           "bookingPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           },
+                           "ancillaryPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           },
+                           "airline" : [
+                              {
+                                 "name" : "British Airways",
+                                 "code" : "BA",
+                                 "country" : "UK",
+                                 "bookingCount" : "2000",
+                                 "ancillaryCount" : 200,
+                                 "bookingPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 },
+                                 "ancillaryPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 }
+                              },
+                              {
+                                 "name" : "KLM",
+                                 "code" : "KL",
+                                 "country" : "NL",
+                                 "bookingCount" : "2000",
+                                 "ancillaryCount" : 200,
+                                 "bookingPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 },
+                                 "ancillaryPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 }
+                              }
+                           ]
+                        },
+                        {
+                           "code" : "RTM",
+                           "name" : "Rotterdam Airport",
+                           "bookingCount" : 2000,
+                           "ancillaryCount" : 200,
+                           "bookingPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           },
+                           "ancillaryPrice" : {
+                              "cost" : 2000,
+                              "currency" : "EURO"
+                           },
+                           "airline" : [
+                              {
+                                 "name" : "British Airways",
+                                 "code" : "BA",
+                                 "country" : "UK",
+                                 "bookingCount" : "2000",
+                                 "ancillaryCount" : 200,
+                                 "bookingPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 },
+                                 "ancillaryPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 }
+                              },
+                              {
+                                 "name" : "KLM",
+                                 "code" : "KL",
+                                 "country" : "NL",
+                                 "bookingCount" : "2000",
+                                 "ancillaryCount" : 200,
+                                 "bookingPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 },
+                                 "ancillaryPrice" : {
+                                    "cost" : 2000,
+                                    "currency" : "EURO"
+                                 }
+                              }
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "name" : "Admin Team",
+                     "bookingCount" : 2000,
+                     "ancillaryCount" : 200,
+                     "bookingPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     },
+                     "ancillaryPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     }
+                  }
+               ]
+            },
+            {
+               "code" : "RTM",
+               "name" : "Rotterdam"
+            }
+         ]
+      },
+      {
+         "name" : "Germany",
+         "code" : "DE"
+      }
+   ]
+}
