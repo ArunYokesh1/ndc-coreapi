@@ -6,7 +6,6 @@ package edu.hackathon.service;
 import java.math.BigInteger;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -137,9 +136,37 @@ public class AnalyticsService {
 	 * 
 	 * @return the list of user from the institutions
 	 */
-	public BookingAnalytics bookingActuals(Date from, Date to) {
-		return null;
+    public List<BookingAnalytics> bookingActuals(DateTime from, DateTime to) {
+
+        List<DateTime> fromPastDateList = new LinkedList<>();
+        List<DateTime> toPastDateList = new LinkedList<>();
+        enrichSplittedDates(from, to, fromPastDateList, toPastDateList);
+
+        List<BookingAnalytics> analyticsResponses = new ArrayList<>();
+
+        for (int i = 0; i < fromPastDateList.size(); i++) {
+
+            BookingAnalytics analyticsRes = new BookingAnalytics();
+
+            DataRange dataRange = new DataRange();
+            dataRange.setFrom(fromPastDateList.get(i));
+            dataRange.setTo(toPastDateList.get(i));
+            analyticsRes.setDataRange(dataRange);
+            analyticsRes.setDataType("actual");
+
+            // Get the past year bookings at the same time
+            List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i), toPastDateList.get(i));
+
+            bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
+            countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
+            analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
+
+            analyticsResponses.add(analyticsRes);
+        }
+
+        return analyticsResponses;
 	}
+
 
 	private void enrichSplittedDates(DateTime fromDate, DateTime toDate, List<DateTime> fromDateList,
 			List<DateTime> toDateList) {

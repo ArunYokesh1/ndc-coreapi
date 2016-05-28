@@ -3,7 +3,6 @@
  */
 package edu.hackathon.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -134,9 +133,8 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/actual")
 	@ResponseBody
-    public BookingAnalytics bookingActuals(@RequestParam(name = "from", required = true) Date from,
-			@RequestParam(name = "to", required = true) Date to) {
-        return null;
+    public HttpEntity<List<BookingAnalytics>> bookingActuals(@RequestParam(name = "from", required = true) String from, @RequestParam(name = "to", required = true) String to) {
+        return new ResponseEntity<>(analyticsService.bookingActuals(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
 	}
 	
     private DateTime getDateFromString(String sourceDate) {
