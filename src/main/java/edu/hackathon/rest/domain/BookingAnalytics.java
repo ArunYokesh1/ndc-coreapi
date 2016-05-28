@@ -20,6 +20,12 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 	@JsonProperty
 	private List<Country> countries;
 
+	@JsonProperty
+	private List<Airline> airlines;
+
+	@JsonProperty
+	private List<AncillaryProduct> ancillaryProducts;
+
 	public String getDataType() {
 		return dataType;
 	}
@@ -49,6 +55,23 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 			this.countries = new ArrayList<>();
 		}
 		this.countries.add(country);
+	}
+
+	public void setAirlines(List<Airline> airlineList) {
+		this.airlines = airlineList;
+
+	}
+
+	public List<Airline> getAirlines() {
+		return airlines;
+	}
+
+	public void setAncillaryProducts(List<AncillaryProduct> airlineList) {
+		this.ancillaryProducts = airlineList;
+		
+	}
+	public List<AncillaryProduct> getAncillaryProducts() {
+		return this.ancillaryProducts;
 	}
 
 }

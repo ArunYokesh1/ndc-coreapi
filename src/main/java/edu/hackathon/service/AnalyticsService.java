@@ -17,6 +17,8 @@ import edu.hackathon.business.BookingBasedBusiness;
 import edu.hackathon.business.CountryBasedBusiness;
 import edu.hackathon.repository.BookingRepository;
 import edu.hackathon.repository.model.Booking;
+import edu.hackathon.rest.domain.Airline;
+import edu.hackathon.rest.domain.AncillaryProduct;
 import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.rest.domain.DataRange;
 
@@ -136,37 +138,37 @@ public class AnalyticsService {
 	 * 
 	 * @return the list of user from the institutions
 	 */
-    public List<BookingAnalytics> bookingActuals(DateTime from, DateTime to) {
+	public List<BookingAnalytics> bookingActuals(DateTime from, DateTime to) {
 
-        List<DateTime> fromPastDateList = new LinkedList<>();
-        List<DateTime> toPastDateList = new LinkedList<>();
-        enrichSplittedDates(from, to, fromPastDateList, toPastDateList);
+		List<DateTime> fromPastDateList = new LinkedList<>();
+		List<DateTime> toPastDateList = new LinkedList<>();
+		enrichSplittedDates(from, to, fromPastDateList, toPastDateList);
 
-        List<BookingAnalytics> analyticsResponses = new ArrayList<>();
+		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
 
-        for (int i = 0; i < fromPastDateList.size(); i++) {
+		for (int i = 0; i < fromPastDateList.size(); i++) {
 
-            BookingAnalytics analyticsRes = new BookingAnalytics();
+			BookingAnalytics analyticsRes = new BookingAnalytics();
 
-            DataRange dataRange = new DataRange();
-            dataRange.setFrom(fromPastDateList.get(i));
-            dataRange.setTo(toPastDateList.get(i));
-            analyticsRes.setDataRange(dataRange);
-            analyticsRes.setDataType("actual");
+			DataRange dataRange = new DataRange();
+			dataRange.setFrom(fromPastDateList.get(i));
+			dataRange.setTo(toPastDateList.get(i));
+			analyticsRes.setDataRange(dataRange);
+			analyticsRes.setDataType("actual");
 
-            // Get the past year bookings at the same time
-            List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i), toPastDateList.get(i));
+			// Get the past year bookings at the same time
+			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i),
+					toPastDateList.get(i));
 
-            bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
-            countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
-            analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
+			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
+			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
+			analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
 
-            analyticsResponses.add(analyticsRes);
-        }
+			analyticsResponses.add(analyticsRes);
+		}
 
-        return analyticsResponses;
+		return analyticsResponses;
 	}
-
 
 	private void enrichSplittedDates(DateTime fromDate, DateTime toDate, List<DateTime> fromDateList,
 			List<DateTime> toDateList) {
@@ -187,8 +189,58 @@ public class AnalyticsService {
 
 	}
 
-	public void forecastForAirlineBasedBooking(DateTime from, DateTime to) {
+	public List<BookingAnalytics> forecastForAirlineBasedBooking(DateTime from, DateTime to) {
+		List<DateTime> toDateList = new ArrayList<>();
+		List<DateTime> fromDateList = new ArrayList<>();
+		enrichSplittedDates(from, to, fromDateList, toDateList);
+		BookingAnalytics analyticsRes = new BookingAnalytics();
 
-		
+		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
+
+		for (int i = 0; i < fromDateList.size(); i++) {
+			BookingAnalytics analytics = new BookingAnalytics();
+			DataRange dataRange = new DataRange();
+			dataRange.setFrom(fromDateList.get(i));
+			dataRange.setTo(toDateList.get(i));
+			analyticsRes.setDataRange(dataRange);
+			analyticsRes.setDataType("forecast");
+
+			// Get the past year bookings at the same time
+			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
+
+			List<Airline> airlineList = countryBasedBusinessRules.filterbyAirline(bookings);
+			countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics);
+			countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics);
+			analytics.setAirlines(airlineList);
+			analyticsResponses.add(analytics);
+		}
+		return analyticsResponses;
+	}
+	public List<BookingAnalytics> forecastForAncillaryBasedBooking(DateTime from, DateTime to) {
+		List<DateTime> toDateList = new ArrayList<>();
+		List<DateTime> fromDateList = new ArrayList<>();
+		enrichSplittedDates(from, to, fromDateList, toDateList);
+		BookingAnalytics analyticsRes = new BookingAnalytics();
+
+		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
+
+		for (int i = 0; i < fromDateList.size(); i++) {
+			BookingAnalytics analytics = new BookingAnalytics();
+			DataRange dataRange = new DataRange();
+			dataRange.setFrom(fromDateList.get(i));
+			dataRange.setTo(toDateList.get(i));
+			analyticsRes.setDataRange(dataRange);
+			analyticsRes.setDataType("forecast");
+
+			// Get the past year bookings at the same time
+			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
+
+			List<AncillaryProduct> ancillarySplit = countryBasedBusinessRules.filterByAncillary(bookings);
+			countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics);
+			countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics);
+			analytics.setAncillaryProducts(ancillarySplit);
+			analyticsResponses.add(analytics);
+		}
+		return analyticsResponses;
 	}
 }

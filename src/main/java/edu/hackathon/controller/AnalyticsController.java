@@ -141,11 +141,23 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/airline")
 	@ResponseBody
-	public BookingAnalytics forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
-		analyticsService.forecastForAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
-		return null;
+	public List<BookingAnalytics> forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
+		return analyticsService.forecastForAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
 	}
 
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airlineCode
+	 * @return
+	 */
+	@RequestMapping("/forecast/{from}/{to}/ancillary")
+	@ResponseBody
+	public List<BookingAnalytics> forecastForAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
+		return analyticsService.forecastForAncillaryBasedBooking(getDateFromString(from), getDateFromString(to));
+	}
 	/**
 	 * Return all the users from the institutions.
 	 * 
