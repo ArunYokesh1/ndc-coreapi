@@ -7,6 +7,7 @@ public class Order {
 	private String orderId;
 	private String orderOwner;
 	private Price orderPrice;
+	private Price flightPrice;
 	private List<OrderItem> orderItems;
 	public String getOrderId() {
 		return orderId;
@@ -31,6 +32,18 @@ public class Order {
 	}
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+	/**
+	 * @return the flightPrice
+	 */
+	public Price getFlightPrice() {
+		return flightPrice;
+	}
+	/**
+	 * @param flightPrice the flightPrice to set
+	 */
+	public void setFlightPrice(Price flightPrice) {
+		this.flightPrice = flightPrice;
 	}
 
 }

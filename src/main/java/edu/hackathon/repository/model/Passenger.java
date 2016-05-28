@@ -18,9 +18,23 @@ public class Passenger {
 
 	private String employer;
 
-	private String organization;
-
 	private String department;
+	
+	private String workingLocation;
+
+	/**
+	 * @return the workingLocation
+	 */
+	public String getWorkingLocation() {
+		return workingLocation;
+	}
+
+	/**
+	 * @param workingLocation the workingLocation to set
+	 */
+	public void setWorkingLocation(String workingLocation) {
+		this.workingLocation = workingLocation;
+	}
 
 	private String organizationalRole;
 
@@ -72,14 +86,6 @@ public class Passenger {
 
 	public void setEmployer(String employer) {
 		this.employer = employer;
-	}
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
 	}
 
 	public String getDepartment() {
