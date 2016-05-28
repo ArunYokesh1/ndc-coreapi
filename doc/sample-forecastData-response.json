@@ -1,0 +1,140 @@
+{
+   "dataType" : "prediction",
+   "dataRange" : {
+      "From" : "01Nov2015",
+      "To" : "30Nov2015"
+   },
+   "bookingCount" : 300,
+   "totalCost" : {
+      "amount" : 219.012,
+      "currency" : "euro"
+   },
+   "itinerary" : [
+      {
+         "destination" : "AMS",
+         "origin" : "CDG",
+         "bookingCount" : 100,
+         "totalCost" : {
+            "amount" : 219.012,
+            "currency" : "euro"
+         },
+         "airlines" : [
+            {
+               "name" : "Airfrance",
+               "code" : "AF",
+               "bookingCount" : 30,
+               "totalCost" : {
+                  "amount" : 219.012,
+                  "currency" : "euro"
+               },
+               "cabinClass" : [
+                  {
+                     "name" : "Economy",
+                     "bookingCount" : 20,
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  },
+                  {
+                     "name" : "Business Class",
+                     "bookingCount" : 20,
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  },
+                  {
+                     "name" : "First Class",
+                     "bookingCount" : 20,
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  }
+               ]
+            }
+         ],
+         "cabinClass" : [
+            {
+               "name" : "Economy",
+               "bookingCount" : 20,
+               "totalCost" : {
+                  "amount" : 219.012,
+                  "currency" : "euro"
+               },
+               "airlines" : [
+                  {
+                     "name" : "Airfrance",
+                     "code" : "AF",
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  }
+               ]
+            },
+            {
+               "name" : "Business Class",
+               "bookingCount" : 20,
+               "totalCost" : {
+                  "amount" : 219.012,
+                  "currency" : "euro"
+               },
+               "airlines" : [
+                  {
+                     "name" : "Airfrance",
+                     "code" : "AF",
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  }
+               ]
+            },
+            {
+               "name" : "First Class",
+               "bookingCount" : 20,
+               "totalCost" : {
+                  "amount" : 219.012,
+                  "currency" : "euro"
+               },
+               "airlines" : [
+                  {
+                     "name" : "Airfrance",
+                     "code" : "AF",
+                     "totalCost" : {
+                        "amount" : 219.012,
+                        "currency" : "euro"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "cabinClass" : [
+      {
+         "name" : "Economy",
+         "bookingCount" : 20,
+         "totalCost" : {
+            "amount" : 219.012,
+            "currency" : "euro"
+         },
+         "airline" : [
+            {
+               "name" : "Airfrance",
+               "code" : "AF",
+               "itinerary" : {
+                  "destination" : "AMS",
+                  "origin" : "CDG",
+                  "totalCost" : {
+                     "amount" : 219.012,
+                     "currency" : "euro"
+                  }
+               }
+            }
+         ]
+      }
+   ]
+}
