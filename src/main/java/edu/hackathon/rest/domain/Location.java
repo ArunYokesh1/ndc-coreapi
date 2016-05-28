@@ -1,5 +1,6 @@
 package edu.hackathon.rest.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +14,7 @@ public class Location extends AbstractAnalyticsItem {
 
 	@JsonProperty
 	private String name;
-	
+
 	@JsonProperty
 	private List<Department> departments;
 
@@ -39,6 +40,13 @@ public class Location extends AbstractAnalyticsItem {
 
 	public void setDepartments(List<Department> departments) {
 		this.departments = departments;
+	}
+
+	public void addDepartments(Department department) {
+		if (this.departments != null) {
+			this.departments = new ArrayList<>();
+		}
+		this.departments.add(department);
 	}
 
 }
