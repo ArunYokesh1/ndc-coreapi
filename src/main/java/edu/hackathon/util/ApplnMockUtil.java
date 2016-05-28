@@ -45,28 +45,34 @@ public class ApplnMockUtil {
 		segment.setFlightNumber("FL1");
 		segment.setDepTime("09:25");
 		segment.setArrivalTime("22:50");
+		segment.setPrice("131604");
+		segment.setDuration("11:15");
 		segment.setAvailableAncilaries(availableAncilaries);
 		
 		Segment segment1 = new Segment();
 		segment1.setFlightNumber("FL2");
 		segment1.setDepTime("13:55");
 		segment1.setArrivalTime("03:20");
+		segment1.setPrice("88008");
+		segment1.setDuration("11:15");
 		segment1.setAvailableAncilaries(availableAncilaries);
 		
 		Segment segment2 = new Segment();
 		segment2.setFlightNumber("FL3");
 		segment2.setDepTime("20:40");
 		segment2.setArrivalTime("11:45");
+		segment1.setPrice("87998");
 		segment2.setAvailableAncilaries(availableAncilaries);
 		
 		Segment segment3 = new Segment();
 		segment3.setFlightNumber("FL4");
 		segment3.setDepTime("06:15");
 		segment3.setArrivalTime("18:00");
+		segment1.setPrice("11:45");
 		segment3.setAvailableAncilaries(availableAncilaries);
 
 		List<Segment> segments = new ArrayList<Segment>();
-		segments.add(segment);
+		segments.add(segment2);
 
 		RecommendedItinerary recommendedItinerary = new RecommendedItinerary();
 		recommendedItinerary.setReasonForRecomendation("Last time you have preferred this Flight");
@@ -74,8 +80,8 @@ public class ApplnMockUtil {
 
 		List<Segment> segments1 = new ArrayList<Segment>();
 		segments1.add(segment1);
-		segments1.add(segment2);
 		segments1.add(segment3);
+		segments1.add(segment);
 
 		Itinerary itinerary = new Itinerary();
 		itinerary.setSegments(segments1);
@@ -84,8 +90,8 @@ public class ApplnMockUtil {
 		otherItineraries.add(itinerary);
 
 		Offers offers1 = new Offers();
-		offers1.setOrgin("AMS");
-		offers1.setDestination("CDG");
+		offers1.setOrgin("FRA");
+		offers1.setDestination("DXB");
 		offers1.setMeeting(meeting);
 		offers1.setRecommendedItinerary(recommendedItinerary);
 
