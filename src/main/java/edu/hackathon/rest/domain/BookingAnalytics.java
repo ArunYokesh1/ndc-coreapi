@@ -1,6 +1,7 @@
 
 package edu.hackathon.rest.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,6 +44,13 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 
 	public void setCountries(List<Country> countries) {
 		this.countries = countries;
+	}
+
+	public void addCountry(Country country) {
+		if (this.countries != null) {
+			this.countries = new ArrayList<>();
+		}
+		this.countries.add(country);
 	}
 
 }
