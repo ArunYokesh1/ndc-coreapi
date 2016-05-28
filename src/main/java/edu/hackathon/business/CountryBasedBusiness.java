@@ -61,10 +61,7 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			setBookingCostAndCount(tempBooking, department);
 			setAncillaryCostAndCount(tempBooking, department);
 			loc.addDepartments(department);
-<<<<<<< HEAD
-=======
 
->>>>>>> 8b4a312cc0c004aa8d941267609c336f4f34aa5f
 		}
 	}
 

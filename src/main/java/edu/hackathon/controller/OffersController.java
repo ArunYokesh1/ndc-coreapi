@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.hackathon.NdcClientConfiguration;
 import edu.hackathon.domain.value.Offers;
-import edu.hackathon.util.MockUtil;
+import edu.hackathon.util.ApplnMockUtil;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class OffersController extends NdcClientConfiguration {
 		offers = (Offers) XmlJsonPojoConvertor.getPojoFromJson("MockOffersResponse.json", new Offers());
 		offers = new AirShoppingResonseMapper().mapAirShoppingResponse(getNdcClient().airShopping(request));*/
 		
-		offers = new MockUtil().getOffersDto();
+		offers = new ApplnMockUtil().getOffersDto();
 
 		return new ResponseEntity<>(offers, HttpStatus.OK);
 	}
