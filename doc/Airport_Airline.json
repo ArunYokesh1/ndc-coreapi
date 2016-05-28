@@ -1,0 +1,85 @@
+{
+   "dataType" : "forecast",
+   "dataRange" : {
+      "From" : "01Nov2015",
+      "To" : "30Nov2015"
+   },
+   "bookingCount" : 300,
+   "ancillaryCount" : 200,
+   "bookingPrice" : {
+      "cost" : 2000,
+      "currency" : "EURO"
+   },
+   "ancillaryPrice" : {
+      "cost" : 2000,
+      "currency" : "EURO"
+   },
+   "country" : [
+      {
+         "name" : "Netherlands",
+         "code" : "NL",
+         "bookingCount" : 2000,
+         "ancillaryCount" : 200,
+         "bookingPrice" : {
+            "cost" : 2000,
+            "currency" : "EURO"
+         },
+         "ancillaryPrice" : {
+            "cost" : 2000,
+            "currency" : "EURO"
+         },
+         "airport" : [
+            {
+               "code" : "AMS",
+               "name" : "Schiphol",
+               "bookingCount" : 2000,
+               "ancillaryCount" : 200,
+               "bookingPrice" : {
+                  "cost" : 2000,
+                  "currency" : "EURO"
+               },
+               "ancillaryPrice" : {
+                  "cost" : 2000,
+                  "currency" : "EURO"
+               },
+               "airline" : [
+                  {
+                     "name" : "British Airways",
+                     "code" : "BA",
+                     "country" : "UK",
+                     "bookingCount" : "2000",
+                     "ancillaryCount" : 200,
+                     "bookingPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     },
+                     "ancillaryPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     }
+                  },
+                  {
+                     "name" : "KLM",
+                     "code" : "KL",
+                     "country" : "NL",
+                     "bookingCount" : "2000",
+                     "ancillaryCount" : 200,
+                     "bookingPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     },
+                     "ancillaryPrice" : {
+                        "cost" : 2000,
+                        "currency" : "EURO"
+                     }
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "name" : "Germany",
+         "code" : "DE"
+      }
+   ]
+}
