@@ -26,6 +26,10 @@ public class Segment {
     private String depTime;
     @JsonProperty("arrivalTime")
     private String arrivalTime;
+    @JsonProperty("duration")
+    private String duration;
+    @JsonProperty("price")
+    private String price;
     @JsonProperty("availableAncilaries")
     private List<AvailableAncilaries> availableAncilaries;
     @JsonIgnore
@@ -103,7 +107,15 @@ public class Segment {
         this.arrivalTime = arrivalTime;
     }
 
-    /**
+    public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	/**
      * 
      * @return The availableAncilaries
      */

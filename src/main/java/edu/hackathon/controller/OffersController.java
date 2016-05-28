@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.iata.ndc.ClientException;
+import org.iata.ndc.schema.AirShoppingRQ;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.hackathon.NdcClientConfiguration;
+import edu.hackathon.XmlJsonPojoConvertor;
 import edu.hackathon.domain.value.Offers;
+import edu.hackathon.domain.value.builder.AirShoppingResonseMapper;
 import edu.hackathon.util.ApplnMockUtil;
 
 /**
@@ -38,11 +41,11 @@ public class OffersController extends NdcClientConfiguration {
 		Offers offers = new Offers();
 
 		// TODO - Get Origin & Destination from UI
-/*		AirShoppingRQ request = (AirShoppingRQ) XmlJsonPojoConvertor.getPojoFromXml("MockAirShoppingRQ.xml",
-				new AirShoppingRQ());
-		offers = (Offers) XmlJsonPojoConvertor.getPojoFromJson("MockOffersResponse.json", new Offers());
-		offers = new AirShoppingResonseMapper().mapAirShoppingResponse(getNdcClient().airShopping(request));*/
-		
+//		AirShoppingRQ request = (AirShoppingRQ) XmlJsonPojoConvertor.getPojoFromXml("MockAirShoppingRQ.xml",
+//				new AirShoppingRQ());
+//		offers = new AirShoppingResonseMapper().mapAirShoppingResponse(getNdcClient().airShopping(request));
+//		offers = (Offers) XmlJsonPojoConvertor.getPojoFromJson("MockOffersResponse.json", new Offers());
+
 		offers = new ApplnMockUtil().getOffersDto();
 
 		return new ResponseEntity<>(offers, HttpStatus.OK);
