@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -121,19 +122,17 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByAncillary(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		if (bookings != null) {
-			for (Booking booking : bookings) {
-				for (Passenger pax : booking.getPassengers()) {
-					for (PassengerSegment paxSeg : pax.getPassengerSegments()) {
-						for (Product product : paxSeg.getProducts()) {
-							List<Booking> tempBookings = filteredBooking.get(product.getProductName());
-							if (tempBookings != null) {
-								tempBookings.add(booking);
-							} else {
-								List<Booking> b = new ArrayList<Booking>();
-								b.add(booking);
-								filteredBooking.put(product.getProductName(), b);
-							}
+		for (Booking booking : ListUtils.emptyIfNull(bookings)) {
+			for (Passenger pax : ListUtils.emptyIfNull(booking.getPassengers())) {
+				for (PassengerSegment paxSeg : ListUtils.emptyIfNull(pax.getPassengerSegments())) {
+					for (Product product : ListUtils.emptyIfNull(paxSeg.getProducts())) {
+						List<Booking> tempBookings = filteredBooking.get(product.getProductName());
+						if (tempBookings != null) {
+							tempBookings.add(booking);
+						} else {
+							List<Booking> b = new ArrayList<Booking>();
+							b.add(booking);
+							filteredBooking.put(product.getProductName(), b);
 						}
 					}
 				}

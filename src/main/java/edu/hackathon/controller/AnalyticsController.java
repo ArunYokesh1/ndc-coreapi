@@ -139,7 +139,7 @@ public class AnalyticsController {
 	 * @param airlineCode
 	 * @return
 	 */
-	@RequestMapping("/forecast/{from}/{to}/airline")
+	@RequestMapping("/forecast/airline/{from}/{to}")
 	@ResponseBody
 	public List<BookingAnalytics> forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
 		return analyticsService.forecastForAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
@@ -153,7 +153,7 @@ public class AnalyticsController {
 	 * @param airlineCode
 	 * @return
 	 */
-	@RequestMapping("/forecast/{from}/{to}/ancillary")
+	@RequestMapping("/forecast/ancillary/{from}/{to}")
 	@ResponseBody
 	public List<BookingAnalytics> forecastForAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
 		return analyticsService.forecastForAncillaryBasedBooking(getDateFromString(from), getDateFromString(to));
