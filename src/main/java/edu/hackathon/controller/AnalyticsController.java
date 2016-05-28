@@ -3,12 +3,12 @@
  */
 package edu.hackathon.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.hackathon.domain.value.Offers;
 import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.service.AnalyticsService;
 
@@ -49,7 +48,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}")
 	@ResponseBody
-    public HttpEntity<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type) {		
+    public HttpEntity<List<BookingAnalytics>> bookingForecast(@PathVariable String from, @PathVariable String to, @PathVariable String type) {
 		return new ResponseEntity<>(analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
 	}
 	
@@ -140,15 +139,9 @@ public class AnalyticsController {
         return null;
 	}
 	
-	private Date getDateFromString(String sourceDate) {
-		Date date = null;
-		try {
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-			date = format.parse(sourceDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    private DateTime getDateFromString(String sourceDate) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+        DateTime date = formatter.parseDateTime(sourceDate);
 		return date;
 	}
 
