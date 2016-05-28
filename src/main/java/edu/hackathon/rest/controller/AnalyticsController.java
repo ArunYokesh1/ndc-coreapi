@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.hackathon.rest.domain.Data;
+import edu.hackathon.rest.domain.BookingCostAnalytics;
+import edu.hackathon.service.AnalyticsService;
 
 /**
  * @author Prabu S B
@@ -26,6 +28,9 @@ import edu.hackathon.rest.domain.Data;
 @RestController
 @RequestMapping("/analytics")
 public class AnalyticsController {
+	
+	@Autowired
+	private AnalyticsService analyticsService;
 
 	@InitBinder
 	void initBinder(final WebDataBinder webDataBinder) {
@@ -41,7 +46,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping
 	@ResponseBody
-	public List<Data> bookingForecast(@RequestParam(name = "from", required = true) Date from,
+	public List<BookingCostAnalytics> bookingForecast(@RequestParam(name = "from", required = true) Date from,
 			@RequestParam(name = "to", required = true) Date to) {
 		return new ArrayList();
 	}
@@ -53,7 +58,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping
 	@ResponseBody
-	public List<Data> bookingActuals(@RequestParam(name = "from", required = true) Date from,
+	public List<BookingCostAnalytics> bookingActuals(@RequestParam(name = "from", required = true) Date from,
 			@RequestParam(name = "to", required = true) Date to) {
 		return new ArrayList();
 	}

@@ -13,7 +13,7 @@ import edu.hackathon.rest.view.AnalyticsDataView;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "dataType", "dataRange", "bookingCount", "totalCost", "itinerary", "cabinClass" })
-public class Data {
+public class BookingCostAnalytics {
 
 	//Type of data represents, either actual or prediction
 	@JsonProperty("dataType")
