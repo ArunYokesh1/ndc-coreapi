@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 
 import edu.hackathon.repository.model.Booking;
 import edu.hackathon.repository.model.Passenger;
+import edu.hackathon.repository.model.PassengerSegment;
+import edu.hackathon.repository.model.Product;
+import edu.hackathon.repository.model.Segment;
+import edu.hackathon.rest.domain.Airline;
+import edu.hackathon.rest.domain.Airport;
+import edu.hackathon.rest.domain.AncillaryProduct;
 import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.rest.domain.Country;
 import edu.hackathon.rest.domain.Department;
@@ -48,6 +54,7 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			setBookingCostAndCount(tempBooking, loc);
 			setAncillaryCostAndCount(tempBooking, loc);
 			filterByDepartment(tempBooking, loc);
+			country.addLocation(loc);
 		}
 
 	}
@@ -60,9 +67,101 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			List<Booking> tempBooking = filteredBooking.get(dept);
 			setBookingCostAndCount(tempBooking, department);
 			setAncillaryCostAndCount(tempBooking, department);
+			filterbyDepartureAirport(tempBooking, department);
 			loc.addDepartments(department);
 
 		}
+	}
+
+	private void filterbyDepartureAirport(List<Booking> bookings, Department department) {
+		Map<String, List<Booking>> filteredBooking = splitByDepartureAirport(bookings);
+		for (String departureAirport : filteredBooking.keySet()) {
+			Airport airport = new Airport();
+			airport.setName(departureAirport);
+			airport.setCode(departureAirport);
+			List<Booking> tempBooking = filteredBooking.get(departureAirport);
+			setBookingCostAndCount(tempBooking, airport);
+			setAncillaryCostAndCount(tempBooking, airport);
+			filterbyAirline(tempBooking, airport);
+			department.addAirport(airport);
+		}
+	}
+
+	private void filterbyAirline(List<Booking> bookings, Airport airport) {
+		Map<String, List<Booking>> filteredBooking = splitByAirline(bookings);
+		for (String airline : filteredBooking.keySet()) {
+			Airline flightCompany = new Airline();
+			flightCompany.setName(airline);
+			flightCompany.setCode(airline);
+			List<Booking> tempBooking = filteredBooking.get(airline);
+			setBookingCostAndCount(tempBooking, flightCompany);
+			setAncillaryCostAndCount(tempBooking, flightCompany);
+			filterByAncillary(tempBooking, flightCompany);
+			airport.addAirline(flightCompany);
+		}
+	}
+
+	private void filterByAncillary(List<Booking> bookings, Airline flightCompany) {
+		Map<String, List<Booking>> filteredBooking = splitByAncillary(bookings);
+		for (String airline : filteredBooking.keySet()) {
+			AncillaryProduct ancillaryPro = new AncillaryProduct();
+			flightCompany.setName(airline);
+			flightCompany.setCode(airline);
+			List<Booking> tempBooking = filteredBooking.get(airline);
+			setBookingCostAndCount(tempBooking, ancillaryPro);
+			setAncillaryCostAndCount(tempBooking, ancillaryPro);
+			flightCompany.addAncillaryProducts(ancillaryPro);
+		}
+
+	}
+
+	private Map<String, List<Booking>> splitByAncillary(List<Booking> bookings) {
+		Map<String, List<Booking>> filteredBooking = new HashMap<>();
+		for (Booking booking : bookings) {
+			for (Passenger pax : booking.getPassengers()) {
+				for (PassengerSegment paxSeg: pax.getPassengerSegments()) {
+					for (Product product: paxSeg.getProducts()) {
+						List<Booking> tempBookings = filteredBooking.get(product.getProductName());
+						if (tempBookings != null) {
+							tempBookings.add(booking);
+						} else {
+							filteredBooking.put(product.getProductName(), Arrays.asList(booking));
+						}
+					}
+				}
+			}
+		}
+		return filteredBooking;
+	}
+
+	private Map<String, List<Booking>> splitByAirline(List<Booking> bookings) {
+		Map<String, List<Booking>> filteredBooking = new HashMap<>();
+		for (Booking booking : bookings) {
+			for (Segment seg : booking.getItinerary().getSegments()) {
+				List<Booking> tempBookings = filteredBooking.get(seg.getOperatingCarrier().getAirlineCode());
+				if (tempBookings != null) {
+					tempBookings.add(booking);
+				} else {
+					filteredBooking.put(seg.getOperatingCarrier().getAirlineCode(), Arrays.asList(booking));
+				}
+			}
+		}
+		return filteredBooking;
+	}
+
+	private Map<String, List<Booking>> splitByDepartureAirport(List<Booking> bookings) {
+		Map<String, List<Booking>> filteredBooking = new HashMap<>();
+		for (Booking booking : bookings) {
+			for (Segment seg : booking.getItinerary().getSegments()) {
+				List<Booking> tempBookings = filteredBooking.get(seg.getDeparture().getAirportCode());
+				if (tempBookings != null) {
+					tempBookings.add(booking);
+				} else {
+					filteredBooking.put(seg.getDeparture().getAirportCode(), Arrays.asList(booking));
+				}
+			}
+		}
+		return filteredBooking;
 	}
 
 	private Map<String, List<Booking>> splitByDepartment(List<Booking> bookings) {
