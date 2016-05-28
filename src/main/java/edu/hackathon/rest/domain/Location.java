@@ -43,7 +43,7 @@ public class Location extends AbstractAnalyticsItem {
 	}
 
 	public void addDepartments(Department department) {
-		if (this.departments != null) {
+		if (this.departments == null) {
 			this.departments = new ArrayList<>();
 		}
 		this.departments.add(department);

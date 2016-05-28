@@ -1,5 +1,6 @@
 package edu.hackathon.business;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -117,15 +118,19 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByAncillary(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Passenger pax : booking.getPassengers()) {
-				for (PassengerSegment paxSeg: pax.getPassengerSegments()) {
-					for (Product product: paxSeg.getProducts()) {
-						List<Booking> tempBookings = filteredBooking.get(product.getProductName());
-						if (tempBookings != null) {
-							tempBookings.add(booking);
-						} else {
-							filteredBooking.put(product.getProductName(), Arrays.asList(booking));
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Passenger pax : booking.getPassengers()) {
+					for (PassengerSegment paxSeg : pax.getPassengerSegments()) {
+						for (Product product : paxSeg.getProducts()) {
+							List<Booking> tempBookings = filteredBooking.get(product.getProductName());
+							if (tempBookings != null) {
+								tempBookings.add(booking);
+							} else {
+								List<Booking> b = new ArrayList<Booking>();
+								b.add(booking);
+								filteredBooking.put(product.getProductName(), b);
+							}
 						}
 					}
 				}
@@ -136,13 +141,17 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByAirline(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Segment seg : booking.getItinerary().getSegments()) {
-				List<Booking> tempBookings = filteredBooking.get(seg.getOperatingCarrier().getAirlineCode());
-				if (tempBookings != null) {
-					tempBookings.add(booking);
-				} else {
-					filteredBooking.put(seg.getOperatingCarrier().getAirlineCode(), Arrays.asList(booking));
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Segment seg : booking.getItinerary().getSegments()) {
+					List<Booking> tempBookings = filteredBooking.get(seg.getOperatingCarrier().getAirlineCode());
+					if (tempBookings != null) {
+						tempBookings.add(booking);
+					} else {
+						List<Booking> b = new ArrayList<Booking>();
+						b.add(booking);
+						filteredBooking.put(seg.getOperatingCarrier().getAirlineCode(), b);
+					}
 				}
 			}
 		}
@@ -151,13 +160,17 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByDepartureAirport(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Segment seg : booking.getItinerary().getSegments()) {
-				List<Booking> tempBookings = filteredBooking.get(seg.getDeparture().getAirportCode());
-				if (tempBookings != null) {
-					tempBookings.add(booking);
-				} else {
-					filteredBooking.put(seg.getDeparture().getAirportCode(), Arrays.asList(booking));
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Segment seg : booking.getItinerary().getSegments()) {
+					List<Booking> tempBookings = filteredBooking.get(seg.getDeparture().getAirportCode());
+					if (tempBookings != null) {
+						tempBookings.add(booking);
+					} else {
+						List<Booking> b = new ArrayList<Booking>();
+						b.add(booking);
+						filteredBooking.put(seg.getDeparture().getAirportCode(), b);
+					}
 				}
 			}
 		}
@@ -166,13 +179,17 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByDepartment(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Passenger pax : booking.getPassengers()) {
-				List<Booking> tempBookings = filteredBooking.get(pax.getDepartment());
-				if (tempBookings != null) {
-					tempBookings.add(booking);
-				} else {
-					filteredBooking.put(pax.getDepartment(), Arrays.asList(booking));
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Passenger pax : booking.getPassengers()) {
+					List<Booking> tempBookings = filteredBooking.get(pax.getDepartment());
+					if (tempBookings != null) {
+						tempBookings.add(booking);
+					} else {
+						List<Booking> b = new ArrayList<Booking>();
+						b.add(booking);
+						filteredBooking.put(pax.getDepartment(), b);
+					}
 				}
 			}
 		}
@@ -181,15 +198,19 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByLocation(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Passenger passenger : booking.getPassengers()) {
-				List<Booking> tempBookings = filteredBooking.get(passenger.getWorkingLocation());
-				if (tempBookings != null) {
-					tempBookings.add(booking);
-				} else {
-					filteredBooking.put(passenger.getWorkingLocation(), Arrays.asList(booking));
-				}
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Passenger passenger : booking.getPassengers()) {
+					List<Booking> tempBookings = filteredBooking.get(passenger.getWorkingLocation());
+					if (tempBookings != null) {
+						tempBookings.add(booking);
+					} else {
+						List<Booking> b = new ArrayList<Booking>();
+						b.add(booking);
+						filteredBooking.put(passenger.getWorkingLocation(), b);
+					}
 
+				}
 			}
 		}
 		return filteredBooking;
@@ -197,15 +218,19 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	private Map<String, List<Booking>> splitByCountry(BookingAnalytics analyticsRes, List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
-		for (Booking booking : bookings) {
-			for (Passenger passenger : booking.getPassengers()) {
-				List<Booking> tempBooking = filteredBooking.get(passenger.getCountry());
-				if (tempBooking != null) {
-					tempBooking.add(booking);
-				} else {
-					filteredBooking.put(passenger.getCountry(), Arrays.asList(booking));
-				}
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Passenger passenger : booking.getPassengers()) {
+					List<Booking> tempBooking = filteredBooking.get(passenger.getCountry());
+					if (tempBooking != null) {
+						tempBooking.add(booking);
+					} else {
+						List<Booking> b = new ArrayList<Booking>();
+						b.add(booking);
+						filteredBooking.put(passenger.getCountry(), b);
+					}
 
+				}
 			}
 		}
 		return filteredBooking;

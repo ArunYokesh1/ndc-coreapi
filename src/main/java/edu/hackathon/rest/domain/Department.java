@@ -16,9 +16,6 @@ public class Department extends AbstractAnalyticsItem {
 	private String code;
 
 	@JsonProperty
-	private List<Ancillary> ancillaries;
-
-	@JsonProperty
 	private List<Airline> airlines;
 
 	@JsonProperty
@@ -38,14 +35,6 @@ public class Department extends AbstractAnalyticsItem {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public List<Ancillary> getAncillaries() {
-		return ancillaries;
-	}
-
-	public void setAncillaries(List<Ancillary> ancillaries) {
-		this.ancillaries = ancillaries;
 	}
 
 	public List<Airline> getAirlines() {
@@ -72,7 +61,7 @@ public class Department extends AbstractAnalyticsItem {
 	}
 
 	public void addAirport(Airport airport) {
-		if (this.airports != null) {
+		if (this.airports == null) {
 			this.airports = new ArrayList<>();
 		}
 		airports.add(airport);

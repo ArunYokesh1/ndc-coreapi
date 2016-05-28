@@ -54,7 +54,7 @@ public class Country extends AbstractAnalyticsItem {
 	}
 
 	public void addLocation(Location loc) {
-		if (this.locations != null) {
+		if (this.locations == null) {
 			this.locations = new ArrayList<>();
 		}
 		this.locations.add(loc);

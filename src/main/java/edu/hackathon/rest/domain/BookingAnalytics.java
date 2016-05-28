@@ -47,7 +47,7 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 	}
 
 	public void addCountry(Country country) {
-		if (this.countries != null) {
+		if (this.countries == null) {
 			this.countries = new ArrayList<>();
 		}
 		this.countries.add(country);

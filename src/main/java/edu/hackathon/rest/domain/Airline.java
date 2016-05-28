@@ -76,7 +76,7 @@ public class Airline extends AbstractAnalyticsItem {
 	}
 
 	public void addAncillaryProducts(AncillaryProduct ancillaryProduct) {
-		if (this.ancillaryProducts != null) {
+		if (this.ancillaryProducts == null) {
 			this.ancillaryProducts = new ArrayList<>();
 		}
 		this.ancillaryProducts.add(ancillaryProduct);
