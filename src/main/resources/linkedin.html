@@ -1,0 +1,48 @@
+<html>
+
+<head>
+
+
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key:   77kak7ojblbmz1
+    authorize: false
+    onLoad: onLinkedInLoad
+</script>
+
+<script type="text/javascript">
+    
+    // Setup an event listener to make an API call once auth is complete
+    function onLinkedInLoad() {
+    	console.log("load")
+        IN.Event.on(IN, "auth", getProfileData);
+    }
+
+    // Handle the successful return from the API call
+    function onSuccess(data) {
+        console.log(data);
+        console.log(data.firstName);
+        document.getElementById("name").innerHTML = data.firstName + " " + data.lastName + " from " + data.location.name + "; role : " + data.headline.split(" at ")[0] + "; company : " + data.headline.split(" at ")[1] + "; industry : " + data.industry;
+        console.log(data.lastName);
+    }
+
+    // Handle an error response from the API call
+    function onError(error) {
+        console.log(error);
+    }
+
+    // Use the API call wrapper to request the member's basic profile data
+    function getProfileData() {
+    	console.log("in")
+        IN.API.Raw("/people/~:(firstName,lastName,headline,industry,location,email-address,picture-url)").result(onSuccess).error(onError);
+    }
+
+</script>
+
+</head>
+
+<p><h3>Hi</h3></p>
+ <div id="name"></div>
+ <img src=""/>
+<script type="in/Login"></script>
+
+</html>

@@ -1,7 +1,7 @@
-
 package edu.hackathon.domain.value;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Generated;
@@ -15,13 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
-@JsonPropertyOrder({
-    "flightNumber",
-    "airlineLogo",
-    "depTime",
-    "arrivalTime",
-    "availableAncilaries"
-})
+@JsonPropertyOrder({"flightNumber", "airlineLogo", "depTime", "arrivalTime", "availableAncilaries"})
 public class Segment {
 
     @JsonProperty("flightNumber")
@@ -33,14 +27,13 @@ public class Segment {
     @JsonProperty("arrivalTime")
     private String arrivalTime;
     @JsonProperty("availableAncilaries")
-    private AvailableAncilaries availableAncilaries;
+    private List<AvailableAncilaries> availableAncilaries;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
-     * @return
-     *     The flightNumber
+     * @return The flightNumber
      */
     @JsonProperty("flightNumber")
     public String getFlightNumber() {
@@ -49,8 +42,7 @@ public class Segment {
 
     /**
      * 
-     * @param flightNumber
-     *     The flightNumber
+     * @param flightNumber The flightNumber
      */
     @JsonProperty("flightNumber")
     public void setFlightNumber(String flightNumber) {
@@ -59,8 +51,7 @@ public class Segment {
 
     /**
      * 
-     * @return
-     *     The airlineLogo
+     * @return The airlineLogo
      */
     @JsonProperty("airlineLogo")
     public String getAirlineLogo() {
@@ -69,8 +60,7 @@ public class Segment {
 
     /**
      * 
-     * @param airlineLogo
-     *     The airlineLogo
+     * @param airlineLogo The airlineLogo
      */
     @JsonProperty("airlineLogo")
     public void setAirlineLogo(String airlineLogo) {
@@ -79,8 +69,7 @@ public class Segment {
 
     /**
      * 
-     * @return
-     *     The depTime
+     * @return The depTime
      */
     @JsonProperty("depTime")
     public String getDepTime() {
@@ -89,8 +78,7 @@ public class Segment {
 
     /**
      * 
-     * @param depTime
-     *     The depTime
+     * @param depTime The depTime
      */
     @JsonProperty("depTime")
     public void setDepTime(String depTime) {
@@ -99,8 +87,7 @@ public class Segment {
 
     /**
      * 
-     * @return
-     *     The arrivalTime
+     * @return The arrivalTime
      */
     @JsonProperty("arrivalTime")
     public String getArrivalTime() {
@@ -109,8 +96,7 @@ public class Segment {
 
     /**
      * 
-     * @param arrivalTime
-     *     The arrivalTime
+     * @param arrivalTime The arrivalTime
      */
     @JsonProperty("arrivalTime")
     public void setArrivalTime(String arrivalTime) {
@@ -119,21 +105,19 @@ public class Segment {
 
     /**
      * 
-     * @return
-     *     The availableAncilaries
+     * @return The availableAncilaries
      */
     @JsonProperty("availableAncilaries")
-    public AvailableAncilaries getAvailableAncilaries() {
+    public List<AvailableAncilaries> getAvailableAncilaries() {
         return availableAncilaries;
     }
 
     /**
      * 
-     * @param availableAncilaries
-     *     The availableAncilaries
+     * @param availableAncilaries The availableAncilaries
      */
     @JsonProperty("availableAncilaries")
-    public void setAvailableAncilaries(AvailableAncilaries availableAncilaries) {
+    public void setAvailableAncilaries(List<AvailableAncilaries> availableAncilaries) {
         this.availableAncilaries = availableAncilaries;
     }
 
