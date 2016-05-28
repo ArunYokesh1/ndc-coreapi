@@ -37,138 +37,135 @@ public class AnalyticsService {
 	@Autowired
 	private CountryBasedBusiness countryBasedBusinessRules;
 
-    public List<BookingAnalytics> forecastBookingCost(DateTime from, DateTime to) {
+	public List<BookingAnalytics> forecastBookingCost(DateTime from, DateTime to) {
 
-        DateTime fromDateTime = new DateTime(from).minusYears(1);
-        DateTime toDateTime = new DateTime(to).minusYears(1);
+		DateTime fromDateTime = new DateTime(from).minusYears(1);
+		DateTime toDateTime = new DateTime(to).minusYears(1);
 
-        List<DateTime> fromDateList = new LinkedList<>();
-        List<DateTime> toDateList = new LinkedList<>();
-        enrichSplittedDates(fromDateTime, toDateTime, fromDateList, toDateList);
+		List<DateTime> fromDateList = new LinkedList<>();
+		List<DateTime> toDateList = new LinkedList<>();
+		enrichSplittedDates(fromDateTime, toDateTime, fromDateList, toDateList);
 
-        List<BookingAnalytics> analyticsResponses = new ArrayList<>();
+		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
 
-        for (int i = 0; i < fromDateList.size(); i++) {
+		for (int i = 0; i < fromDateList.size(); i++) {
 
-            BookingAnalytics analyticsRes = new BookingAnalytics();
+			BookingAnalytics analyticsRes = new BookingAnalytics();
 
-            DataRange dataRange = new DataRange();
-            dataRange.setFrom(fromDateList.get(i));
-            dataRange.setTo(toDateList.get(i));
-            analyticsRes.setDataRange(dataRange);
-            analyticsRes.setDataType("actual");
+			DataRange dataRange = new DataRange();
+			dataRange.setFrom(fromDateList.get(i));
+			dataRange.setTo(toDateList.get(i));
+			analyticsRes.setDataRange(dataRange);
+			analyticsRes.setDataType("actual");
 
-            // Get the past year bookings at the same time
-            List<Booking> bookings = bookingRepository.findAll();
+			// Get the past year bookings at the same time
+			List<Booking> bookings = bookingRepository.findAll();
 
-            identifyPastYearData(bookings, fromDateList.get(i), toDateList.get(i));
+			List<Booking> identifiedData = identifyPastYearData(bookings, fromDateList.get(i), toDateList.get(i));
 
-            bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
-            countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
-            analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
+			bookingBasedBusinessRules.calculateCostAndCount(identifiedData, analyticsRes);
+			countryBasedBusinessRules.fillterPerCountry(identifiedData, analyticsRes);
+			analyticsRes.setBookingCount(BigInteger.valueOf(identifiedData.size()));
 
-            analyticsResponses.add(analyticsRes);
-        }
+			analyticsResponses.add(analyticsRes);
+		}
 
-        return analyticsResponses;
-    }
+		return analyticsResponses;
+	}
 
-	private void identifyPastYearData(List<Booking> bookings, DateTime fromDateTime, DateTime toDateTime) {
+	private List<Booking> identifyPastYearData(List<Booking> bookings, DateTime fromDateTime, DateTime toDateTime) {
 		List<Booking> pastyearbooking = new ArrayList<>();
 		for (Booking booking : bookings) {
-			/*for (Segment segment : booking.getItinerary().getSegments()) {
-				Date departuretime = DateUtil.parseDate(segment.getDepartureTime());
-				if (fromDateTime.isBefore(departuretime.getTime()) && toDateTime.isAfter(departuretime.getTime())) {
-					pastyearbooking.add(booking);
-				}
-			}*/
-			if (fromDateTime.isBefore(booking.getOrderedTime().getTime()) && toDateTime.isAfter(booking.getOrderedTime().getTime())) {
+			if (fromDateTime.isBefore(booking.getOrderedTime().getTime())
+					&& toDateTime.isAfter(booking.getOrderedTime().getTime())) {
 				pastyearbooking.add(booking);
+			}
+		}
+		return pastyearbooking;
+
+	}
+
+	public BookingAnalytics bookingForecast(String from, String to, String type, String country) {
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param country
+	 * @param location
+	 * @return
+	 */
+	public BookingAnalytics bookingForecast(String from, String to, String type, String country, String location) {
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param country
+	 * @param location
+	 * @param department
+	 * @return
+	 */
+	public BookingAnalytics bookingForecast(String from, String to, String type, String country, String location,
+			String department) {
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airportCode
+	 * @return
+	 */
+	public BookingAnalytics bookingForecastForAirport(String from, String to, String type, String airportCode) {
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airlineCode
+	 * @return
+	 */
+	public BookingAnalytics bookingForecastForAirLine(String from, String to, String type, String airlineCode) {
+		return null;
+	}
+
+	/**
+	 * Return all the users from the institutions.
+	 * 
+	 * @return the list of user from the institutions
+	 */
+	public BookingAnalytics bookingActuals(Date from, Date to) {
+		return null;
+	}
+
+	private void enrichSplittedDates(DateTime fromDate, DateTime toDate, List<DateTime> fromDateList,
+			List<DateTime> toDateList) {
+		for (int month = fromDate.getMonthOfYear(); month <= toDate.getMonthOfYear(); month++) {
+			if (month == fromDate.getMonthOfYear()) {
+				fromDateList.add(fromDate);
+			} else {
+				fromDateList.add(new org.joda.time.DateTime(fromDate.getYear(), month, 1, 0, 0));
+			}
+
+			if (month == toDate.getMonthOfYear()) {
+				toDateList.add(toDate);
+			} else {
+				toDateList.add(new org.joda.time.DateTime(toDate.getYear(), month,
+						Month.values()[month - 1].length(toDate.getYear() % 4 == 0), 0, 0));
 			}
 		}
 
 	}
-
-    public BookingAnalytics bookingForecast(String from, String to, String type, String country) {
-        return null;
-    }
-
-    /**
-     * 
-     * @param from
-     * @param to
-     * @param type
-     * @param country
-     * @param location
-     * @return
-     */
-    public BookingAnalytics bookingForecast(String from, String to, String type, String country, String location) {
-        return null;
-    }
-
-    /**
-     * 
-     * @param from
-     * @param to
-     * @param type
-     * @param country
-     * @param location
-     * @param department
-     * @return
-     */
-    public BookingAnalytics bookingForecast(String from, String to, String type, String country, String location, String department) {
-        return null;
-    }
-
-    /**
-     * 
-     * @param from
-     * @param to
-     * @param type
-     * @param airportCode
-     * @return
-     */
-    public BookingAnalytics bookingForecastForAirport(String from, String to, String type, String airportCode) {
-        return null;
-    }
-
-    /**
-     * 
-     * @param from
-     * @param to
-     * @param type
-     * @param airlineCode
-     * @return
-     */
-    public BookingAnalytics bookingForecastForAirLine(String from, String to, String type, String airlineCode) {
-        return null;
-    }
-
-    /**
-     * Return all the users from the institutions.
-     * 
-     * @return the list of user from the institutions
-     */
-    public BookingAnalytics bookingActuals(Date from, Date to) {
-        return null;
-    }
-
-    private void enrichSplittedDates(DateTime fromDate, DateTime toDate, List<DateTime> fromDateList, List<DateTime> toDateList) {
-        for (int month = fromDate.getMonthOfYear(); month <= toDate.getMonthOfYear(); month++) {
-            if (month == fromDate.getMonthOfYear()) {
-                fromDateList.add(fromDate);
-            }
-            else {
-                fromDateList.add(new org.joda.time.DateTime(fromDate.getYear(), month, 1, 0, 0));
-            }
-
-            if (month == toDate.getMonthOfYear()) {
-                toDateList.add(toDate);
-            }
-            else {
-                toDateList.add(new org.joda.time.DateTime(toDate.getYear(), month, Month.values()[month - 1].length(toDate.getYear() % 4 == 0), 0, 0));
-            }
-        }
-
-    }
 }
