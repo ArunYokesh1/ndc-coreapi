@@ -3,6 +3,8 @@ package edu.hackathon.business;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
+
 import edu.hackathon.repository.model.Booking;
 import edu.hackathon.repository.model.Order;
 import edu.hackathon.repository.model.Passenger;
@@ -17,13 +19,15 @@ public abstract class AbstractAnalyticsBusiness {
 		BigInteger bookingCount = BigInteger.valueOf(0);
 		Long bookingAmt = 0l;
 		String currency = new String();
-		for (Booking booking : bookings) {
-			for (Order order : booking.getOrders()) {
-				bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
-				currency = order.getFlightPrice().getCurrency();
-				bookingCount.add(BigInteger.valueOf(1));
+		if (bookings != null)
+			for (Booking booking : bookings) {
+				for (Order order : booking.getOrders()) {
+					bookingAmt = bookingAmt + order.getFlightPrice().getAmount();
+					currency = order.getFlightPrice().getCurrency();
+					bookingCount.add(BigInteger.valueOf(1));
+				}
 			}
-		}
+
 		Price price = new Price();
 		price.setAmount(Double.valueOf(bookingAmt));
 		price.setCurrency(currency);
@@ -36,13 +40,15 @@ public abstract class AbstractAnalyticsBusiness {
 		long ancillaryAmt = 0l;
 		long count = 0l;
 		String currency = new String();
-		for (Booking booking : bookings) {
-			for (Passenger passenger : booking.getPassengers()) {
-				for (PassengerSegment paxSeg : passenger.getPassengerSegments()) {
-					for (Product product : paxSeg.getProducts()) {
-						ancillaryAmt = ancillaryAmt + product.getPrice().getAmount();
-						currency = product.getPrice().getCurrency();
-						count = count + 1;
+		if (bookings != null) {
+			for (Booking booking : bookings) {
+				for (Passenger passenger : booking.getPassengers()) {
+					for (PassengerSegment paxSeg : passenger.getPassengerSegments()) {
+						for (Product product : paxSeg.getProducts()) {
+							ancillaryAmt = ancillaryAmt + product.getPrice().getAmount();
+							currency = product.getPrice().getCurrency();
+							count = count + 1;
+						}
 					}
 				}
 			}

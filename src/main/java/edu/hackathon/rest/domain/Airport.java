@@ -43,7 +43,7 @@ public class Airport extends AbstractAnalyticsItem {
 	}
 
 	public void addAirline(Airline airline) {
-		if (this.airlines != null) {
+		if (this.airlines == null) {
 			this.airlines = new ArrayList<>();
 		}
 		this.airlines.add(airline);
