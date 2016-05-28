@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import edu.hackathon.domain.Booking;
+import edu.hackathon.repository.model.Booking;
 
 
 /**

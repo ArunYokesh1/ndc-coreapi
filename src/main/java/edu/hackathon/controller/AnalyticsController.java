@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hackathon.rest.controller;
+package edu.hackathon.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +27,12 @@ public class AnalyticsController {
 
 	@Autowired
 	private AnalyticsService analyticsService;
+
+	@RequestMapping("/healthcheck")
+	@ResponseBody
+	public String healthcheck() {
+		return "SUCESS";
+	}
 
 	/**
 	 * Return all the users from the institutions.

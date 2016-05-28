@@ -1,4 +1,4 @@
-package edu.hackathon.domain;
+package edu.hackathon.repository.model;
 
 public class BookingReference {
 

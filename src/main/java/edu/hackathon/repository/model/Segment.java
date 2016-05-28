@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hackathon.domain;
+package edu.hackathon.repository.model;
 
 import org.joda.time.Duration;
 
@@ -12,8 +12,8 @@ import org.joda.time.Duration;
 public class Segment {
 
 	private String id;
-	private Station departure;
-	private Station arrival;
+	private Airport departure;
+	private Airport arrival;
 	private Carrier marketingCarrier;
 	private Carrier operatingCarrier;
 	private Duration duration;
@@ -26,19 +26,19 @@ public class Segment {
 		this.id = id;
 	}
 
-	public Station getDeparture() {
+	public Airport getDeparture() {
 		return departure;
 	}
 
-	public void setDeparture(Station departure) {
+	public void setDeparture(Airport departure) {
 		this.departure = departure;
 	}
 
-	public Station getArrival() {
+	public Airport getArrival() {
 		return arrival;
 	}
 
-	public void setArrival(Station arrival) {
+	public void setArrival(Airport arrival) {
 		this.arrival = arrival;
 	}
 

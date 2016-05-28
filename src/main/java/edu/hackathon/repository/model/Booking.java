@@ -1,4 +1,4 @@
-package edu.hackathon.domain;
+package edu.hackathon.repository.model;
 
 import java.util.Date;
 import java.util.List;

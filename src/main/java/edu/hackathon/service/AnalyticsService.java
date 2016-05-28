@@ -3,16 +3,36 @@
  */
 package edu.hackathon.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import edu.hackathon.repository.BookingRepository;
+import edu.hackathon.repository.model.Booking;
 import edu.hackathon.rest.domain.BookingCostAnalytics;
 
 /**
  * @author x096284
  *
  */
-public interface AnalyticsService {
+@Service
+public class AnalyticsService {
 
-	BookingCostAnalytics forecastBookingCost(Date from, Date to);
+	@Autowired
+	private BookingRepository bookingRepository;
+
+	public BookingCostAnalytics forecastBookingCost(Date from, Date to) {
+		// List<Booking> bookings =
+		// bookingRepository.findBookingOrderedTimeWithinTime(from, to);
+
+		List<Booking> bookings = new ArrayList<>();
+
+		BookingCostAnalytics analyticsRes = new BookingCostAnalytics();
+
+		return analyticsRes;
+	}
 
 }
