@@ -38,7 +38,7 @@ public class CabinClass {
 	 */
 	@JsonProperty("totalCost")
 	@JsonView(AnalyticsDataView.BaseDataView.class)
-	private TotalCost totalCost;
+	private Price totalCost;
 
 	/**
 	 * 
@@ -82,7 +82,7 @@ public class CabinClass {
 	/**
 	 * @return the totalCost
 	 */
-	public TotalCost getTotalCost() {
+	public Price getTotalCost() {
 		return totalCost;
 	}
 
@@ -90,7 +90,7 @@ public class CabinClass {
 	 * @param totalCost
 	 *            the totalCost to set
 	 */
-	public void setTotalCost(TotalCost totalCost) {
+	public void setTotalCost(Price totalCost) {
 		this.totalCost = totalCost;
 	}
 

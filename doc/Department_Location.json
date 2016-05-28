@@ -45,12 +45,12 @@
                         "cost" : 2000,
                         "currency" : "EURO"
                      },
-                     "ancillary" : [
+                     "ancillaries" : [
                         {
                            "name" : "Extra LegRoom",
                            "type" : "Seat",
-                           "ancillaryCount" : 200,
-                           "ancillaryPrice" : {
+                           "totalCount" : 200,
+                           "totalPrice" : {
                               "cost" : 2000,
                               "currency" : "EURO"
                            }
@@ -58,8 +58,8 @@
                         {
                            "name" : "Paid Lounge",
                            "type" : "Lounge",
-                           "ancillaryCount" : 200,
-                           "ancillaryPrice" : {
+                           "totalCount" : 200,
+                           "totalPrice" : {
                               "cost" : 2000,
                               "currency" : "EURO"
                            }

@@ -10,7 +10,7 @@ import edu.hackathon.rest.view.AnalyticsDataView;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "amount", "currency" })
-public class TotalCost {
+public class Price {
 
 	/**
 	 * 

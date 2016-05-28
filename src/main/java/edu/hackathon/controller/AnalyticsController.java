@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.hackathon.rest.domain.BookingCostAnalytics;
+import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.service.AnalyticsService;
 
 /**
@@ -41,7 +41,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}")
 	@ResponseBody
-	public List<BookingCostAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to) {
+	public List<BookingAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to) {
 		return new ArrayList();
 	}
 
@@ -52,7 +52,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/actual")
 	@ResponseBody
-	public List<BookingCostAnalytics> bookingActuals(@RequestParam(name = "from", required = true) Date from,
+	public List<BookingAnalytics> bookingActuals(@RequestParam(name = "from", required = true) Date from,
 			@RequestParam(name = "to", required = true) Date to) {
 		return new ArrayList();
 	}

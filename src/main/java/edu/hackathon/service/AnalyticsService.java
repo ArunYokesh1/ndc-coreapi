@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import edu.hackathon.repository.BookingRepository;
 import edu.hackathon.repository.model.Booking;
-import edu.hackathon.rest.domain.BookingCostAnalytics;
+import edu.hackathon.rest.domain.BookingAnalytics;
 
 /**
  * @author x096284
@@ -24,13 +24,13 @@ public class AnalyticsService {
 	@Autowired
 	private BookingRepository bookingRepository;
 
-	public BookingCostAnalytics forecastBookingCost(Date from, Date to) {
+	public BookingAnalytics forecastBookingCost(Date from, Date to) {
 		// List<Booking> bookings =
 		// bookingRepository.findBookingOrderedTimeWithinTime(from, to);
 
 		List<Booking> bookings = new ArrayList<>();
 
-		BookingCostAnalytics analyticsRes = new BookingCostAnalytics();
+		BookingAnalytics analyticsRes = new BookingAnalytics();
 
 		return analyticsRes;
 	}
