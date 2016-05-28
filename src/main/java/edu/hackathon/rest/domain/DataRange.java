@@ -1,7 +1,7 @@
 
 package edu.hackathon.rest.domain;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,28 +10,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DataRange {
 
 	@JsonProperty("from")
-	private Date from;
+    private DateTime from;
 	/**
 	 * 
 	 * (Required)
 	 * 
 	 */
 	@JsonProperty("to")
-	private Date to;
+    private DateTime to;
 
-	public Date getFrom() {
+    public DateTime getFrom() {
 		return from;
 	}
 
-	public void setFrom(Date from) {
+    public void setFrom(DateTime from) {
 		this.from = from;
 	}
 
-	public Date getTo() {
+    public DateTime getTo() {
 		return to;
 	}
 
-	public void setTo(Date to) {
+    public void setTo(DateTime to) {
 		this.to = to;
 	}
 

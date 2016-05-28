@@ -28,6 +28,10 @@ public class AbstractAnalyticsItem {
 		this.bookingCount = bookingCount;
 	}
 
+    public void addBookingCount(BigInteger bookingCount) {
+        this.bookingCount.add(bookingCount);
+    }
+
 	public Price getBookingPrice() {
 		return bookingPrice;
 	}
