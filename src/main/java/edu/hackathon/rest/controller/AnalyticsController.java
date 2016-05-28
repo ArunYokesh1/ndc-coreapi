@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,10 +33,9 @@ public class AnalyticsController {
 	 * 
 	 * @return the list of user from the institutions
 	 */
-	@RequestMapping("/forecast")
+	@RequestMapping("/forecast/{from}/{to}")
 	@ResponseBody
-	public List<BookingCostAnalytics> bookingForecast(@RequestParam(name = "from", required = true) Date from,
-			@RequestParam(name = "to", required = true) Date to) {
+	public List<BookingCostAnalytics> bookingForecast(@PathVariable String from, @PathVariable String to) {
 		return new ArrayList();
 	}
 

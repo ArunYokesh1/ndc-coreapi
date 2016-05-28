@@ -18,7 +18,7 @@ import edu.hackathon.domain.Booking;
  */
 public interface BookingRepository extends MongoRepository<Booking, String> {
 	
-	@Query("")
-	public List<Booking> findBookingOrderedTimeWithinTime(Date start, Date end);
+	/*@Query("")
+	public List<Booking> findBookingOrderedTimeWithinTime(Date start, Date end);*/
 
 }

@@ -19,7 +19,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
 	@Override
 	public BookingCostAnalytics forecastBookingCost(Date from, Date to) {
-		List<Booking> bookings = bookingRepository.findBookingOrderedTimeWithinTime(from, to);
+		//List<Booking> bookings = bookingRepository.findBookingOrderedTimeWithinTime(from, to);
 
 		return null;
 	}
