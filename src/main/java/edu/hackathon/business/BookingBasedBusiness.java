@@ -10,8 +10,8 @@ import edu.hackathon.rest.domain.BookingAnalytics;
 @Component
 public class BookingBasedBusiness extends AbstractAnalyticsBusiness {
 
-	public void calculateCostAndCount(List<Booking> bookings, BookingAnalytics analyticsRes) {
-		setBookingCostAndCount(bookings, analyticsRes);
-		setAncillaryCostAndCount(bookings, analyticsRes);
+	public void calculateCostAndCount(List<Booking> bookings, BookingAnalytics analyticsRes, boolean randomaise) {
+		setBookingCostAndCount(bookings, analyticsRes, randomaise);
+		setAncillaryCostAndCount(bookings, analyticsRes, randomaise);
 	}
 }

@@ -2,6 +2,7 @@ package edu.hackathon.business;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.collections4.ListUtils;
 
@@ -15,7 +16,7 @@ import edu.hackathon.rest.domain.Price;
 
 public abstract class AbstractAnalyticsBusiness {
 
-	public <T extends AbstractAnalyticsItem> void setBookingCostAndCount(List<Booking> bookings, T analytics) {
+	public <T extends AbstractAnalyticsItem> void setBookingCostAndCount(List<Booking> bookings, T analytics, boolean randomaise) {
 		long bookingCount = 0l;
 		Long bookingAmt = 0l;
 		String currency = new String();
@@ -26,7 +27,11 @@ public abstract class AbstractAnalyticsBusiness {
 				bookingCount = bookingCount + 1;
 			}
 		}
-
+		// 	randomise is for forecasting
+		if (randomaise) {
+			bookingAmt = bookingAmt + getRandom();
+			bookingCount = bookingCount + getRandom();
+		}
 		Price price = new Price();
 		price.setAmount(Double.valueOf(bookingAmt));
 		price.setCurrency(currency);
@@ -35,7 +40,7 @@ public abstract class AbstractAnalyticsBusiness {
 
 	}
 
-	public <T extends AbstractAnalyticsItem> void setAncillaryCostAndCount(List<Booking> bookings, T analytics) {
+	public <T extends AbstractAnalyticsItem> void setAncillaryCostAndCount(List<Booking> bookings, T analytics, boolean randomaise) {
 		long ancillaryAmt = 0l;
 		long count = 0l;
 		String currency = new String();
@@ -52,10 +57,37 @@ public abstract class AbstractAnalyticsBusiness {
 				}
 			}
 		}
+		
+		if (randomaise) {
+			count = count + getRandom();
+			ancillaryAmt = ancillaryAmt + getRandom();
+		}
+		
 		analytics.setAncillaryCount(BigInteger.valueOf(count));
 		Price totalAncillaryCost = new Price();
 		totalAncillaryCost.setAmount(Double.valueOf(ancillaryAmt));
 		totalAncillaryCost.setCurrency(currency);
 		analytics.setAncillaryPrice(totalAncillaryCost);
 	}
+	
+	private int getRandom() {
+		int randomNumber =  0;
+	    int START = 1;
+	    int END = 10;
+	    Random random = new Random();
+	    for (int idx = 1; idx <= 10; ++idx){
+
+	    	if (START > END) {
+	  	      throw new IllegalArgumentException("Start cannot exceed End.");
+	  	    }
+	  	    //get the range, casting to long to avoid overflow problems
+	  	    long range = (long)END - (long)END + 1;
+	  	    // compute a fraction of the range, 0 <= frac < range
+	  	    long fraction = (long)(range * random.nextDouble());
+	  	    randomNumber =  (int)(fraction + START);   
+	    }
+	    return randomNumber;
+	    
+	  }
+	  
 }

@@ -25,70 +25,70 @@ import edu.hackathon.rest.domain.Location;
 @Component
 public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
-	public void fillterPerCountry(List<Booking> bookings, BookingAnalytics analyticsRes) {
+	public void fillterPerCountry(List<Booking> bookings, BookingAnalytics analyticsRes, boolean randomaise) {
 		Map<String, List<Booking>> countryFilteredBookings = splitByCountry(bookings);
 		for (String countryCode : countryFilteredBookings.keySet()) {
-			setBookingCostAndCount(countryCode, countryFilteredBookings, analyticsRes);
+			setBookingCostAndCount(countryCode, countryFilteredBookings, analyticsRes, randomaise);
 		}
 
 	}
 
 	private void setBookingCostAndCount(String countryCode, Map<String, List<Booking>> countryFilteredBookings,
-			BookingAnalytics analyticsRes) {
+			BookingAnalytics analyticsRes, boolean randomaise) {
 		String[] countryCodeSplit = StringUtils.split(countryCode, "-");
 		Country country = new Country();
 		country.setCode(countryCodeSplit[0]);
 		country.setName(countryCodeSplit[1]);
 		List<Booking> bookings = countryFilteredBookings.get(countryCode);
-		setBookingCostAndCount(bookings, country);
-		setAncillaryCostAndCount(bookings, country);
-		filterByLocation(bookings, country);
+		setBookingCostAndCount(bookings, country, randomaise);
+		setAncillaryCostAndCount(bookings, country, randomaise);
+		filterByLocation(bookings, country, randomaise);
 		analyticsRes.addCountry(country);
 	}
 
-	private void filterByLocation(List<Booking> bookings, Country country) {
+	private void filterByLocation(List<Booking> bookings, Country country, boolean randomaise) {
 		Map<String, List<Booking>> filteredBooking = splitByLocation(bookings);
 		for (String location : filteredBooking.keySet()) {
 			Location loc = new Location();
 			loc.setName(location);
 			List<Booking> tempBooking = filteredBooking.get(location);
-			setBookingCostAndCount(tempBooking, loc);
-			setAncillaryCostAndCount(tempBooking, loc);
-			filterByDepartment(tempBooking, loc);
+			setBookingCostAndCount(tempBooking, loc, randomaise);
+			setAncillaryCostAndCount(tempBooking, loc, randomaise);
+			filterByDepartment(tempBooking, loc, randomaise);
 			country.addLocation(loc);
 		}
 
 	}
 
-	private void filterByDepartment(List<Booking> bookings, Location loc) {
+	private void filterByDepartment(List<Booking> bookings, Location loc, boolean randomaise) {
 		Map<String, List<Booking>> filteredBooking = splitByDepartment(bookings);
 		for (String dept : filteredBooking.keySet()) {
 			Department department = new Department();
 			department.setName(dept);
 			List<Booking> tempBooking = filteredBooking.get(dept);
-			setBookingCostAndCount(tempBooking, department);
-			setAncillaryCostAndCount(tempBooking, department);
-			filterbyDepartureAirport(tempBooking, department);
+			setBookingCostAndCount(tempBooking, department, randomaise);
+			setAncillaryCostAndCount(tempBooking, department, randomaise);
+			filterbyDepartureAirport(tempBooking, department, randomaise);
 			loc.addDepartments(department);
 
 		}
 	}
 
-	private void filterbyDepartureAirport(List<Booking> bookings, Department department) {
+	private void filterbyDepartureAirport(List<Booking> bookings, Department department, boolean randomaise) {
 		Map<String, List<Booking>> filteredBooking = splitByDepartureAirport(bookings);
 		for (String departureAirport : filteredBooking.keySet()) {
 			Airport airport = new Airport();
 			airport.setName(departureAirport);
 			airport.setCode(departureAirport);
 			List<Booking> tempBooking = filteredBooking.get(departureAirport);
-			setBookingCostAndCount(tempBooking, airport);
-			setAncillaryCostAndCount(tempBooking, airport);
-			airport.setAirlines(filterbyAirline(tempBooking));
+			setBookingCostAndCount(tempBooking, airport, randomaise);
+			setAncillaryCostAndCount(tempBooking, airport, randomaise);
+			airport.setAirlines(filterbyAirline(tempBooking, randomaise));
 			department.addAirport(airport);
 		}
 	}
 
-	public List<Airline> filterbyAirline(List<Booking> bookings) {
+	public List<Airline> filterbyAirline(List<Booking> bookings, boolean randomaise) {
 		List<Airline> airlineList = new ArrayList<>();
 		Map<String, List<Booking>> filteredBooking = splitByAirline(bookings);
 		for (String airline : filteredBooking.keySet()) {
@@ -97,22 +97,22 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			flightCompany.setName(airlineCodeSplit[1]);
 			flightCompany.setCode(airlineCodeSplit[0]);
 			List<Booking> tempBooking = filteredBooking.get(airline);
-			setBookingCostAndCount(tempBooking, flightCompany);
-			setAncillaryCostAndCount(tempBooking, flightCompany);
-			flightCompany.setAncillaryProducts(filterByAncillary(tempBooking));
+			setBookingCostAndCount(tempBooking, flightCompany, randomaise);
+			setAncillaryCostAndCount(tempBooking, flightCompany, randomaise);
+			flightCompany.setAncillaryProducts(filterByAncillary(tempBooking, randomaise));
 			airlineList.add(flightCompany);
 		}
 		return airlineList;
 	}
 
-	public List<AncillaryProduct> filterByAncillary(List<Booking> bookings) {
+	public List<AncillaryProduct> filterByAncillary(List<Booking> bookings, boolean randomaise) {
 		List<AncillaryProduct> ancillaryProds = new ArrayList<>();
 		Map<String, List<Booking>> filteredBooking = splitByAncillary(bookings);
 		for (String prodName : filteredBooking.keySet()) {
 			AncillaryProduct ancillaryPro = new AncillaryProduct();
 			ancillaryPro.setName(prodName);
 			List<Booking> tempBooking = filteredBooking.get(prodName);
-			setAncillaryCostAndCount(tempBooking, ancillaryPro);
+			setAncillaryCostAndCount(tempBooking, ancillaryPro, randomaise);
 			// flightCompany.addAncillaryProducts(ancillaryPro);
 			ancillaryProds.add(ancillaryPro);
 		}

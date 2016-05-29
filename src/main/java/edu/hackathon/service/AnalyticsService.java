@@ -67,8 +67,9 @@ public class AnalyticsService {
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i),
 					toPastDateList.get(i));
 
-			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
-			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
+			// last param - to trigger randomization
+			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes, true);
+			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes, true);
 			analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
 
 			analyticsResponses.add(analyticsRes);
@@ -160,8 +161,8 @@ public class AnalyticsService {
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromPastDateList.get(i),
 					toPastDateList.get(i));
 
-			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes);
-			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes);
+			bookingBasedBusinessRules.calculateCostAndCount(bookings, analyticsRes, false);
+			countryBasedBusinessRules.fillterPerCountry(bookings, analyticsRes, false);
 			analyticsRes.setBookingCount(BigInteger.valueOf(bookings.size()));
 
 			analyticsResponses.add(analyticsRes);
@@ -207,9 +208,9 @@ public class AnalyticsService {
 			// Get the past year bookings at the same time
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
 
-			List<Airline> airlineList = countryBasedBusinessRules.filterbyAirline(bookings);
-			countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics);
-			countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics);
+			List<Airline> airlineList = countryBasedBusinessRules.filterbyAirline(bookings, true);
+			countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics, true);
+			countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics, true);
 			analytics.setAirlines(airlineList);
 			analyticsResponses.add(analytics);
 		}
@@ -233,7 +234,7 @@ public class AnalyticsService {
 			// Get the past year bookings at the same time
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
 
-			List<AncillaryProduct> ancillarySplit = countryBasedBusinessRules.filterByAncillary(bookings);
+			List<AncillaryProduct> ancillarySplit = countryBasedBusinessRules.filterByAncillary(bookings, false);
 			//countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics);
 			//countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics);
 			analytics.setAncillaryProducts(ancillarySplit);
