@@ -193,7 +193,6 @@ public class AnalyticsService {
 		List<DateTime> toDateList = new ArrayList<>();
 		List<DateTime> fromDateList = new ArrayList<>();
 		enrichSplittedDates(from, to, fromDateList, toDateList);
-		BookingAnalytics analyticsRes = new BookingAnalytics();
 
 		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
 
@@ -202,8 +201,8 @@ public class AnalyticsService {
 			DataRange dataRange = new DataRange();
 			dataRange.setFrom(fromDateList.get(i));
 			dataRange.setTo(toDateList.get(i));
-			analyticsRes.setDataRange(dataRange);
-			analyticsRes.setDataType("forecast");
+			analytics.setDataRange(dataRange);
+			analytics.setDataType("forecast");
 
 			// Get the past year bookings at the same time
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
@@ -220,7 +219,6 @@ public class AnalyticsService {
 		List<DateTime> toDateList = new ArrayList<>();
 		List<DateTime> fromDateList = new ArrayList<>();
 		enrichSplittedDates(from, to, fromDateList, toDateList);
-		BookingAnalytics analyticsRes = new BookingAnalytics();
 
 		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
 
@@ -229,8 +227,8 @@ public class AnalyticsService {
 			DataRange dataRange = new DataRange();
 			dataRange.setFrom(fromDateList.get(i));
 			dataRange.setTo(toDateList.get(i));
-			analyticsRes.setDataRange(dataRange);
-			analyticsRes.setDataType("forecast");
+			analytics.setDataRange(dataRange);
+			analytics.setDataType("forecast");
 
 			// Get the past year bookings at the same time
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
