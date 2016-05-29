@@ -54,10 +54,11 @@ public class AnalyticsController {
 	@ResponseBody
 	public HttpEntity<AnalyticsWrapper> bookingForecast(@PathVariable String from, @PathVariable String to,
 			@PathVariable String type) {
-		
+
 		AnalyticsWrapper analyticsWrapper = new AnalyticsWrapper();
-		List<BookingAnalytics> bookingAnalyticsList = analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to));
-		
+		List<BookingAnalytics> bookingAnalyticsList = analyticsService.forecastBookingCost(getDateFromString(from),
+				getDateFromString(to));
+
 		Map<String, CountryAnalytics> countryDetailsMap = new HashMap<>();
 		for (BookingAnalytics bookingAnalytics : bookingAnalyticsList) {
 			if (bookingAnalytics.getCountries() != null) {
@@ -70,16 +71,17 @@ public class AnalyticsController {
 						countryDetailsMap.put(country.getCode(), countryAnalytics);
 					} else {
 						CountryAnalytics countryAnalytics = new CountryAnalytics(country.getAncillaryCount(),
-								country.getBookingCount(), country.getAncillaryPrice(), country.getBookingPrice(), country.getCode(), country.getName());
+								country.getBookingCount(), country.getAncillaryPrice(), country.getBookingPrice(),
+								country.getCode(), country.getName());
 						countryDetailsMap.put(country.getCode(), countryAnalytics);
 					}
 
 				}
 			}
 		}
-		
+
 		analyticsWrapper.setBookingAnalyticsList(bookingAnalyticsList);
-		analyticsWrapper.setCountryAnalyticsList(new ArrayList<>(countryDetailsMap.values()));//.toArray());
+		analyticsWrapper.setCountryAnalyticsList(new ArrayList<>(countryDetailsMap.values()));// .toArray());
 		return new ResponseEntity<>(analyticsWrapper, HttpStatus.OK);
 	}
 
@@ -189,6 +191,7 @@ public class AnalyticsController {
 	public BookingAnalytics forecastForAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
 		return analyticsService.forecastForAncillaryBasedBooking(getDateFromString(from), getDateFromString(to));
 	}
+
 	/**
 	 * Return all the users from the institutions.
 	 * 
@@ -196,9 +199,33 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/actual/{from}/{to}")
 	@ResponseBody
-	public HttpEntity<List<BookingAnalytics>> bookingActuals(@PathVariable String from, @PathVariable String to) {
-		return new ResponseEntity<>(analyticsService.bookingActuals(getDateFromString(from), getDateFromString(to)),
-				HttpStatus.OK);
+	public HttpEntity<AnalyticsWrapper> bookingActuals(@PathVariable String from, @PathVariable String to) {
+		AnalyticsWrapper analyticsWrapper = new AnalyticsWrapper();
+		List<BookingAnalytics> bookingAnalyticsList = analyticsService.bookingActuals(getDateFromString(from),
+				getDateFromString(to));
+		Map<String, CountryAnalytics> countryDetailsMap = new HashMap<>();
+		for (BookingAnalytics bookingAnalytics : bookingAnalyticsList) {
+			if (bookingAnalytics.getCountries() != null) {
+				for (Country country : bookingAnalytics.getCountries()) {
+					if (countryDetailsMap.get(country.getCode()) != null) {
+						CountryAnalytics countryAnalytics = countryDetailsMap.get(country.getCode());
+						countryAnalytics.setCode(country.getCode());
+						countryAnalytics.setName(country.getName());
+						countryAnalytics.updateNewDetails(country);
+						countryDetailsMap.put(country.getCode(), countryAnalytics);
+					} else {
+						CountryAnalytics countryAnalytics = new CountryAnalytics(country.getAncillaryCount(),
+								country.getBookingCount(), country.getAncillaryPrice(), country.getBookingPrice(),
+								country.getCode(), country.getName());
+						countryDetailsMap.put(country.getCode(), countryAnalytics);
+					}
+				}
+			}
+		}
+
+		analyticsWrapper.setBookingAnalyticsList(bookingAnalyticsList);
+		analyticsWrapper.setCountryAnalyticsList(new ArrayList<>(countryDetailsMap.values()));// .toArray());
+		return new ResponseEntity<>(analyticsWrapper, HttpStatus.OK);
 	}
 
 	private DateTime getDateFromString(String sourceDate) {

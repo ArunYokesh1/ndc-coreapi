@@ -71,22 +71,8 @@ public abstract class AbstractAnalyticsBusiness {
 	}
 
 	private int getRandom() {
-		int randomNumber = 0;
-		int START = 1;
-		int END = 10;
 		Random random = new Random();
-		for (int idx = 1; idx <= 10; ++idx) {
-
-			if (START > END) {
-				throw new IllegalArgumentException("Start cannot exceed End.");
-			}
-			// get the range, casting to long to avoid overflow problems
-			long range = (long) END - (long) END + 1;
-			// compute a fraction of the range, 0 <= frac < range
-			long fraction = (long) (range * random.nextDouble());
-			randomNumber = (int) (fraction + START);
-		}
-		return randomNumber;
+		return random.nextInt(10);
 
 	}
 
