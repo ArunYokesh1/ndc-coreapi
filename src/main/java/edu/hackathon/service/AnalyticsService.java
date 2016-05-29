@@ -231,4 +231,40 @@ public class AnalyticsService {
 
 		return bookingAnalytics;
 	}
+
+	public BookingAnalytics actualAirlineBasedBooking(DateTime from, DateTime to) {
+		BookingAnalytics bookingAnalytics = new BookingAnalytics();
+		List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(from, to);
+		Map<String, List<Booking>> splittedBookings = countryBasedBusinessRules.splitByAirline(bookings);
+		for (String airlineCode : splittedBookings.keySet()) {
+			String[] airlineSplits = StringUtils.split(airlineCode, "-");
+			Airline airline = new Airline();
+			airline.setName(airlineSplits[1]);
+			airline.setCode(airlineSplits[0]);
+			List<Booking> tempBooking = splittedBookings.get(airlineCode);
+			//countryBasedBusinessRules.setAncillaryCostAndCount(tempBooking, airline, true);
+			countryBasedBusinessRules.setBookingCostAndCount(tempBooking, airline, false);
+			airlineBasedBusinessRules.calculateAnalytics(tempBooking, airline, false);
+			bookingAnalytics.addAirline(airline);
+		}
+
+		return bookingAnalytics;
+	}
+	
+	public BookingAnalytics actualAncillaryBasedBooking(DateTime from, DateTime to) {
+		BookingAnalytics bookingAnalytics = new BookingAnalytics();
+		List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(from, to);
+		Map<String, List<Booking>> splittedBookings = countryBasedBusinessRules.splitByAncillary(bookings);
+		for (String ancillary : splittedBookings.keySet()) {
+			AncillaryProduct anciProd = new AncillaryProduct();
+			anciProd.setName(ancillary);
+			List<Booking> tempBooking = splittedBookings.get(ancillary);
+			
+			countryBasedBusinessRules.setBookingCostAndCount(tempBooking, anciProd, false);
+			airlineBasedBusinessRules.calculateAnalytics(tempBooking, anciProd, false);
+			bookingAnalytics.addAncillaryProduct(anciProd);
+		}
+
+		return bookingAnalytics;
+	}
 }

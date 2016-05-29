@@ -193,6 +193,34 @@ public class AnalyticsController {
 	}
 
 	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airlineCode
+	 * @return
+	 */
+	@RequestMapping("/actual/airline/{from}/{to}")
+	@ResponseBody
+	public BookingAnalytics actualAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
+		return analyticsService.actualAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
+	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @param type
+	 * @param airlineCode
+	 * @return
+	 */
+	@RequestMapping("/actual/ancillary/{from}/{to}")
+	@ResponseBody
+	public BookingAnalytics actualAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
+		return analyticsService.actualAncillaryBasedBooking(getDateFromString(from), getDateFromString(to));
+	}
+	
+	/**
 	 * Return all the users from the institutions.
 	 * 
 	 * @return the list of user from the institutions
