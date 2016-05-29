@@ -48,6 +48,18 @@ public class AbstractAnalyticsItem {
 		this.ancillaryCount = ancillaryCount;
 	}
 
+	public void addAncillaryCount(BigInteger ancillaryCount) {
+		this.ancillaryCount.add(ancillaryCount);
+	}
+	
+	public void updateBookingPrice(Price bookingPrice) {
+		this.bookingPrice.setAmount(this.bookingPrice.getAmount() + bookingPrice.getAmount());
+	}
+
+	public void updateAncillaryPrice(Price ancillaryPrice) {
+		this.ancillaryPrice.setAmount(this.ancillaryPrice.getAmount() + ancillaryPrice.getAmount());
+	}
+		
 	public Price getAncillaryPrice() {
 		return ancillaryPrice;
 	}

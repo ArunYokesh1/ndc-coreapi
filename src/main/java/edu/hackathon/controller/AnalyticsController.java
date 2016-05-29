@@ -3,7 +3,10 @@
  */
 package edu.hackathon.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -17,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.hackathon.rest.domain.AnalyticsWrapper;
 import edu.hackathon.rest.domain.BookingAnalytics;
+import edu.hackathon.rest.domain.Country;
+import edu.hackathon.rest.domain.CountryAnalytics;
 import edu.hackathon.service.AnalyticsService;
 
 /**
@@ -46,10 +52,35 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/{from}/{to}/{type}")
 	@ResponseBody
-	public HttpEntity<List<BookingAnalytics>> bookingForecast(@PathVariable String from, @PathVariable String to,
+	public HttpEntity<AnalyticsWrapper> bookingForecast(@PathVariable String from, @PathVariable String to,
 			@PathVariable String type) {
-		return new ResponseEntity<>(
-				analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to)), HttpStatus.OK);
+		
+		AnalyticsWrapper analyticsWrapper = new AnalyticsWrapper();
+		List<BookingAnalytics> bookingAnalyticsList = analyticsService.forecastBookingCost(getDateFromString(from), getDateFromString(to));
+		
+		Map<String, CountryAnalytics> countryDetailsMap = new HashMap<>();
+		for (BookingAnalytics bookingAnalytics : bookingAnalyticsList) {
+			if (bookingAnalytics.getCountries() != null) {
+				for (Country country : bookingAnalytics.getCountries()) {
+					if (countryDetailsMap.get(country.getCode()) != null) {
+						CountryAnalytics countryAnalytics = countryDetailsMap.get(country.getCode());
+						countryAnalytics.setCode(country.getCode());
+						countryAnalytics.setName(country.getName());
+						countryAnalytics.updateNewDetails(country);
+						countryDetailsMap.put(country.getCode(), countryAnalytics);
+					} else {
+						CountryAnalytics countryAnalytics = new CountryAnalytics(country.getAncillaryCount(),
+								country.getBookingCount(), country.getAncillaryPrice(), country.getBookingPrice(), country.getCode(), country.getName());
+						countryDetailsMap.put(country.getCode(), countryAnalytics);
+					}
+
+				}
+			}
+		}
+		
+		analyticsWrapper.setBookingAnalyticsList(bookingAnalyticsList);
+		analyticsWrapper.setCountryAnalyticsList(new ArrayList<>(countryDetailsMap.values()));//.toArray());
+		return new ResponseEntity<>(analyticsWrapper, HttpStatus.OK);
 	}
 
 	/**
