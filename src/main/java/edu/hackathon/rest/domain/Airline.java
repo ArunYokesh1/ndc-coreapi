@@ -30,6 +30,9 @@ public class Airline extends AbstractAnalyticsItem {
 	@JsonProperty
 	private List<AncillaryProduct> ancillaryProducts;
 
+	@JsonProperty
+	private List<Analytics> analytics;
+
 	public String getName() {
 		return name;
 	}
@@ -77,6 +80,21 @@ public class Airline extends AbstractAnalyticsItem {
 			this.ancillaryProducts = new ArrayList<>();
 		}
 		this.ancillaryProducts.add(ancillaryProduct);
+	}
+
+	public List<Analytics> getAnalytics() {
+		return analytics;
+	}
+
+	public void setAnalytics(List<Analytics> analytics) {
+		this.analytics = analytics;
+	}
+
+	public void addAnalytic(Analytics analytic) {
+		if (this.analytics == null) {
+			this.analytics = new ArrayList<>();
+		}
+		this.analytics.add(analytic);
 	}
 
 }

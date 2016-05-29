@@ -8,11 +8,14 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.hackathon.business.AirlineBasedBusiness;
 import edu.hackathon.business.BookingBasedBusiness;
 import edu.hackathon.business.CountryBasedBusiness;
 import edu.hackathon.repository.BookingRepository;
@@ -37,6 +40,9 @@ public class AnalyticsService {
 
 	@Autowired
 	private CountryBasedBusiness countryBasedBusinessRules;
+	
+	@Autowired
+	private AirlineBasedBusiness airlineBasedBusinessRules;
 
 	public List<BookingAnalytics> forecastBookingCost(DateTime from, DateTime to) {
 
@@ -190,54 +196,39 @@ public class AnalyticsService {
 
 	}
 
-	public List<BookingAnalytics> forecastForAirlineBasedBooking(DateTime from, DateTime to) {
-		List<DateTime> toDateList = new ArrayList<>();
-		List<DateTime> fromDateList = new ArrayList<>();
-		enrichSplittedDates(from, to, fromDateList, toDateList);
-
-		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
-
-		for (int i = 0; i < fromDateList.size(); i++) {
-			BookingAnalytics analytics = new BookingAnalytics();
-			DataRange dataRange = new DataRange();
-			dataRange.setFrom(fromDateList.get(i));
-			dataRange.setTo(toDateList.get(i));
-			analytics.setDataRange(dataRange);
-			analytics.setDataType("forecast");
-
-			// Get the past year bookings at the same time
-			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
-
-			List<Airline> airlineList = countryBasedBusinessRules.filterbyAirline(bookings, true);
-			countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics, true);
-			countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics, true);
-			analytics.setAirlines(airlineList);
-			analyticsResponses.add(analytics);
+	public BookingAnalytics forecastForAirlineBasedBooking(DateTime from, DateTime to) {
+		BookingAnalytics bookingAnalytics = new BookingAnalytics();
+		List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(from, to);
+		Map<String, List<Booking>> splittedBookings = countryBasedBusinessRules.splitByAirline(bookings);
+		for (String airlineCode : splittedBookings.keySet()) {
+			String[] airlineSplits = StringUtils.split(airlineCode, "-");
+			Airline airline = new Airline();
+			airline.setName(airlineSplits[1]);
+			airline.setCode(airlineSplits[0]);
+			List<Booking> tempBooking = splittedBookings.get(airlineCode);
+			//countryBasedBusinessRules.setAncillaryCostAndCount(tempBooking, airline, true);
+			countryBasedBusinessRules.setBookingCostAndCount(tempBooking, airline, true);
+			airlineBasedBusinessRules.calculateAnalytics(tempBooking, airline, true);
+			bookingAnalytics.addAirline(airline);
 		}
-		return analyticsResponses;
+
+		return bookingAnalytics;
 	}
-	public List<BookingAnalytics> forecastForAncillaryBasedBooking(DateTime from, DateTime to) {
-		List<DateTime> toDateList = new ArrayList<>();
-		List<DateTime> fromDateList = new ArrayList<>();
-		enrichSplittedDates(from, to, fromDateList, toDateList);
 
-		List<BookingAnalytics> analyticsResponses = new ArrayList<>();
-
-		for (int i = 0; i < fromDateList.size(); i++) {
-			BookingAnalytics analytics = new BookingAnalytics();
-			DataRange dataRange = new DataRange();
-			dataRange.setFrom(fromDateList.get(i));
-			dataRange.setTo(toDateList.get(i));
-			analytics.setDataRange(dataRange);
-			analytics.setDataType("forecast");
-
-			// Get the past year bookings at the same time
-			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
-
-			List<AncillaryProduct> ancillarySplit = countryBasedBusinessRules.filterByAncillary(bookings, false);
-			analytics.setAncillaryProducts(ancillarySplit);
-			analyticsResponses.add(analytics);
+	public BookingAnalytics forecastForAncillaryBasedBooking(DateTime from, DateTime to) {
+		BookingAnalytics bookingAnalytics = new BookingAnalytics();
+		List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(from, to);
+		Map<String, List<Booking>> splittedBookings = countryBasedBusinessRules.splitByAncillary(bookings);
+		for (String ancillary : splittedBookings.keySet()) {
+			AncillaryProduct anciProd = new AncillaryProduct();
+			anciProd.setName(ancillary);
+			List<Booking> tempBooking = splittedBookings.get(ancillary);
+			
+			countryBasedBusinessRules.setBookingCostAndCount(tempBooking, anciProd, true);
+			airlineBasedBusinessRules.calculateAnalytics(tempBooking, anciProd, true);
+			bookingAnalytics.addAncillaryProduct(anciProd);
 		}
-		return analyticsResponses;
+
+		return bookingAnalytics;
 	}
 }

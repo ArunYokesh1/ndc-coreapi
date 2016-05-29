@@ -65,6 +65,13 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 	public List<Airline> getAirlines() {
 		return airlines;
 	}
+	
+	public void addAirline(Airline airline) {
+		if (this.airlines == null) {
+			this.airlines = new ArrayList<>(); 
+		}
+		this.airlines.add(airline);
+	}
 
 	public void setAncillaryProducts(List<AncillaryProduct> airlineList) {
 		this.ancillaryProducts = airlineList;
@@ -72,6 +79,13 @@ public class BookingAnalytics extends AbstractAnalyticsItem {
 	}
 	public List<AncillaryProduct> getAncillaryProducts() {
 		return this.ancillaryProducts;
+	}
+	
+	public void addAncillaryProduct(AncillaryProduct ancillaryProduct) {
+		if (this.ancillaryProducts == null) {
+			this.ancillaryProducts = new ArrayList<>();
+		}
+		this.ancillaryProducts.add(ancillaryProduct);
 	}
 
 }
