@@ -50,10 +50,9 @@ public class AnalyticsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping("/forecast/{from}/{to}/{type}")
+	@RequestMapping("/forecast/{from}/{to}")
 	@ResponseBody
-	public HttpEntity<AnalyticsWrapper> bookingForecast(@PathVariable String from, @PathVariable String to,
-			@PathVariable String type) {
+	public HttpEntity<AnalyticsWrapper> bookingForecast(@PathVariable String from, @PathVariable String to) {
 
 		AnalyticsWrapper analyticsWrapper = new AnalyticsWrapper();
 		List<BookingAnalytics> bookingAnalyticsList = analyticsService.forecastBookingCost(getDateFromString(from),
