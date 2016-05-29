@@ -147,7 +147,7 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 
 	}
 
-	private Map<String, List<Booking>> splitByAncillary(List<Booking> bookings) {
+	public Map<String, List<Booking>> splitByAncillary(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
 		for (Booking booking : ListUtils.emptyIfNull(bookings)) {
 			for (Passenger pax : ListUtils.emptyIfNull(booking.getPassengers())) {
@@ -168,7 +168,7 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 		return filteredBooking;
 	}
 
-	private Map<String, List<Booking>> splitByAirline(List<Booking> bookings) {
+	public Map<String, List<Booking>> splitByAirline(List<Booking> bookings) {
 		Map<String, List<Booking>> filteredBooking = new HashMap<>();
 		if (bookings != null) {
 			for (Booking booking : bookings) {

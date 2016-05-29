@@ -172,7 +172,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/airline/{from}/{to}")
 	@ResponseBody
-	public List<BookingAnalytics> forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
+	public BookingAnalytics forecastForAirLineBasedBooking(@PathVariable String from, @PathVariable String to) {
 		return analyticsService.forecastForAirlineBasedBooking(getDateFromString(from), getDateFromString(to));
 	}
 
@@ -186,7 +186,7 @@ public class AnalyticsController {
 	 */
 	@RequestMapping("/forecast/ancillary/{from}/{to}")
 	@ResponseBody
-	public List<BookingAnalytics> forecastForAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
+	public BookingAnalytics forecastForAncillaryBasedBooking(@PathVariable String from, @PathVariable String to) {
 		return analyticsService.forecastForAncillaryBasedBooking(getDateFromString(from), getDateFromString(to));
 	}
 	/**
