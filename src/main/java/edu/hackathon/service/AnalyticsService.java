@@ -234,8 +234,6 @@ public class AnalyticsService {
 			List<Booking> bookings = bookingRepository.findByOrderedTimeBetween(fromDateList.get(i), toDateList.get(i));
 
 			List<AncillaryProduct> ancillarySplit = countryBasedBusinessRules.filterByAncillary(bookings);
-			//countryBasedBusinessRules.setAncillaryCostAndCount(bookings, analytics);
-			//countryBasedBusinessRules.setBookingCostAndCount(bookings, analytics);
 			analytics.setAncillaryProducts(ancillarySplit);
 			analyticsResponses.add(analytics);
 		}

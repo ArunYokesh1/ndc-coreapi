@@ -1,5 +1,6 @@
 package edu.hackathon.business;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import edu.hackathon.rest.domain.BookingAnalytics;
 import edu.hackathon.rest.domain.Country;
 import edu.hackathon.rest.domain.Department;
 import edu.hackathon.rest.domain.Location;
+import edu.hackathon.rest.domain.Price;
 
 @Component
 public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
@@ -112,11 +114,35 @@ public class CountryBasedBusiness extends AbstractAnalyticsBusiness {
 			AncillaryProduct ancillaryPro = new AncillaryProduct();
 			ancillaryPro.setName(prodName);
 			List<Booking> tempBooking = filteredBooking.get(prodName);
-			setAncillaryCostAndCount(tempBooking, ancillaryPro);
-			// flightCompany.addAncillaryProducts(ancillaryPro);
+			setAncillaryCostAndCount(tempBooking, ancillaryPro, prodName);
 			ancillaryProds.add(ancillaryPro);
 		}
 		return ancillaryProds;
+
+	}
+
+	private void setAncillaryCostAndCount(List<Booking> bookings, AncillaryProduct ancillaryPro, String prodName) {
+		long ancillaryAmt = 0l;
+		long count = 0l;
+		String currency = new String();
+		for (Booking booking : ListUtils.emptyIfNull(bookings)) {
+			for (Passenger passenger : ListUtils.emptyIfNull(booking.getPassengers())) {
+				for (PassengerSegment paxSeg : ListUtils.emptyIfNull(passenger.getPassengerSegments())) {
+					for (Product product : ListUtils.emptyIfNull(paxSeg.getProducts())) {
+						if (StringUtils.equalsIgnoreCase(product.getProductName(), prodName)) {
+							ancillaryAmt = ancillaryAmt + product.getPrice().getAmount();
+							currency = product.getPrice().getCurrency();
+							count = count + 1;
+						}
+					}
+				}
+			}
+		}
+		ancillaryPro.setAncillaryCount(BigInteger.valueOf(count));
+		Price totalAncillaryCost = new Price();
+		totalAncillaryCost.setAmount(Double.valueOf(ancillaryAmt));
+		totalAncillaryCost.setCurrency(currency);
+		ancillaryPro.setAncillaryPrice(totalAncillaryCost);
 
 	}
 
